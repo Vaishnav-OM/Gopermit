@@ -335,7 +335,11 @@ class EventOnHoldCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return GestureDetector(
+      onTap: () {
+       Navigator.push(context, MaterialPageRoute(builder: (context) =>scheduledDetails() ));
+      },
+      child: Container(
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
       decoration: BoxDecoration(
@@ -440,6 +444,7 @@ class EventOnHoldCard extends StatelessWidget {
             //width: 40,
           ),
         ],
+      ),
       ),
     );
   }
