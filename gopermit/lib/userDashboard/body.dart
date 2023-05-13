@@ -7,8 +7,8 @@ import 'package:gopermit/scheduledEvents/body.dart';
 //   runApp(const GoPermit());
 // }
 
-class GoPermit extends StatelessWidget {
-  const GoPermit({super.key});
+class UserDashBoard extends StatelessWidget {
+  const UserDashBoard({super.key});
 
   @override
   Widget build(BuildContext context) {
