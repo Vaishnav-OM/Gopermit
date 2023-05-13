@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "443949428171",
+    "project_id": "go-permit",
+    "storage_bucket": "go-permit.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:443949428171:android:9407f844e56917a60f1a4e",
+        "android_client_info": {
+          "package_name": "com.example.gopermit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "443949428171-44tcpfl0kujtpgqtur3ib1ag7blcmmho.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRVAGDatwArHKwLTpJH7W9Ww-lsLRhRvM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "443949428171-44tcpfl0kujtpgqtur3ib1ag7blcmmho.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gopermit/scheduledEvents/body.dart';
 // import 'package:google_fonts/google_fonts.dart';
 //import 'package:flutter/src/painting/image_resolution.dart';
 
@@ -337,114 +338,115 @@ class EventOnHoldCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-       Navigator.push(context, MaterialPageRoute(builder: (context) =>scheduledDetails() ));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => scheduledDetails()));
       },
       child: Container(
-      width: double.infinity,
-      margin: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
-      decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 228, 226, 226),
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          //Container(
-          // height: 100.0,
-          //width: 100.0,
-          //color: Colors.grey[300],
-          //margin: const EdgeInsets.all(8.0),
-          //),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'AMA Session with Devikaa D',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16.0,
+        width: double.infinity,
+        margin: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
+        decoration: BoxDecoration(
+          color: const Color.fromARGB(255, 228, 226, 226),
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            //Container(
+            // height: 100.0,
+            //width: 100.0,
+            //color: Colors.grey[300],
+            //margin: const EdgeInsets.all(8.0),
+            //),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'AMA Session with Devikaa D',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16.0,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 4.0),
-                  const Text(
-                    'TinkerHub',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 12.0,
+                    const SizedBox(height: 4.0),
+                    const Text(
+                      'TinkerHub',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 12.0,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 4.0),
-                  Row(
-                    children: const [
-                      Icon(
-                        Icons.calendar_today,
-                        size: 14.0,
-                        color: Colors.black,
-                      ),
-                      SizedBox(width: 4.0),
-                      Text(
-                        '24th January 2023',
-                        style: TextStyle(
+                    const SizedBox(height: 4.0),
+                    Row(
+                      children: const [
+                        Icon(
+                          Icons.calendar_today,
+                          size: 14.0,
                           color: Colors.black,
-                          fontSize: 12.0,
                         ),
-                      ),
-                      SizedBox(width: 8.0),
-                      Icon(
-                        Icons.access_time,
-                        size: 14.0,
-                        color: Colors.black,
-                      ),
-                      SizedBox(width: 4.0),
-                      Text(
-                        '4pm - 5pm',
-                        style: TextStyle(
+                        SizedBox(width: 4.0),
+                        Text(
+                          '24th January 2023',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 12.0,
+                          ),
+                        ),
+                        SizedBox(width: 8.0),
+                        Icon(
+                          Icons.access_time,
+                          size: 14.0,
                           color: Colors.black,
-                          fontSize: 12.0,
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 4.0),
-                  Row(
-                    children: const [
-                      Icon(
-                        Icons.location_on,
-                        size: 14.0,
-                        color: Colors.black,
-                      ),
-                      SizedBox(width: 4.0),
-                      Text(
-                        'Room No 312',
-                        style: TextStyle(
+                        SizedBox(width: 4.0),
+                        Text(
+                          '4pm - 5pm',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 12.0,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 4.0),
+                    Row(
+                      children: const [
+                        Icon(
+                          Icons.location_on,
+                          size: 14.0,
                           color: Colors.black,
-                          fontSize: 12.0,
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                        SizedBox(width: 4.0),
+                        Text(
+                          'Room No 312',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 12.0,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-          Container(
-            // ignore: sort_child_properties_last
-            // ignore: prefer_const_constructors
+            Container(
+              // ignore: sort_child_properties_last
+              // ignore: prefer_const_constructors
 
-            height: 50,
-            width: 50,
-            margin: const EdgeInsets.all(16.0),
-            // child: Image.asset('assets/images/bg_design'),
-            //fit: BoxFit.cover,
-            //height: 40,
-            //width: 40,
-          ),
-        ],
-      ),
+              height: 50,
+              width: 50,
+              margin: const EdgeInsets.all(16.0),
+              // child: Image.asset('assets/images/bg_design'),
+              //fit: BoxFit.cover,
+              //height: 40,
+              //width: 40,
+            ),
+          ],
+        ),
       ),
     );
   }

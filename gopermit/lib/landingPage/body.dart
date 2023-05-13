@@ -155,9 +155,9 @@ class EventCard extends StatelessWidget {
             borderRadius: const BorderRadius.vertical(
               top: Radius.circular(10.0),
             ),
-            child: Image.network(
-              'https://picsum.photos/180/180',
-              height: 100.0,
+            child: Image.asset(
+              'assets/images/eventcard.jpg',
+              height: 200.0,
               width: double.infinity,
               fit: BoxFit.cover,
             ),

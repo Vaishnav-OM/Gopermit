@@ -5,8 +5,14 @@ import 'principalSide/principal_side_permission_screen.dart';
 import 'landingPage/body.dart';
 import 'userDashboard/body.dart';
 import 'scheduledEvents/body.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -16,8 +22,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: LoginPage(),
+    return const MaterialApp(
+      home: GoPermit(),
       debugShowCheckedModeBanner: false,
     );
   }
