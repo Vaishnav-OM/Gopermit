@@ -1,3 +1,5 @@
+//import 'package:auth/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gopermit/landingPage/body.dart';
 import 'package:gopermit/newPermission/components/background.dart';
@@ -7,6 +9,41 @@ class LoginPage extends StatelessWidget {
   LoginPage({super.key});
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
+
+  Future<void> _login(BuildContext context) async {
+    try {
+      final UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: usernameController.text,
+        password: passwordController.text,
+      );
+      // ignore: use_build_context_synchronously
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const HomeScreen(),
+        ),
+      );
+    } catch (e) {
+      // Handle login error
+      // ignore: avoid_print
+      print('Login error: $e');
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Login Error'),
+          content: const Text('An error occurred during login.'),
+          actions: [
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () => Navigator.pop(context),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,16 +102,13 @@ class LoginPage extends StatelessWidget {
                             height: 45,
                             child: ElevatedButton(
                               onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const HomeScreen()));
+                                _login(context);
                               },
                               style: ButtonStyle(
-                                  elevation: MaterialStateProperty.all(0),
-                                  backgroundColor: MaterialStateProperty.all(
-                                      const Color.fromRGBO(233, 233, 233, 1))),
+                                elevation: MaterialStateProperty.all(0),
+                                backgroundColor: MaterialStateProperty.all(
+                                    const Color.fromRGBO(233, 233, 233, 1)),
+                              ),
                               child: const Text(
                                 'LOGIN',
                                 style: TextStyle(
@@ -190,6 +224,7 @@ class TitleWithTextField extends StatelessWidget {
                           onTap: () {
                             passVisibleNotifier.value =
                                 !passVisibleNotifier.value;
+
                             passVisibleNotifier.notifyListeners();
                           },
                         )
@@ -200,5 +235,34 @@ class TitleWithTextField extends StatelessWidget {
         kheight,
       ],
     );
+  }
+}
+
+class Auth {
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  User? get currentUser => _firebaseAuth.currentUser;
+  Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
+  Future<void> signInWIthEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
+    await _firebaseAuth.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+  }
+
+  Future<void> createUserWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
+    await _firebaseAuth.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+  }
+
+  Future<void> signOut() async {
+    await _firebaseAuth.signOut();
   }
 }

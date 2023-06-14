@@ -1,11 +1,13 @@
+//import 'package:auth/auth.dart';
 import 'package:flutter/material.dart';
-import 'newPermission/new_permission.dart';
+//import 'newPermission/new_permission.dart';
 import 'package:gopermit/loginPage/login_page.dart';
-import 'principalSide/principal_side_permission_screen.dart';
-import 'landingPage/body.dart';
-import 'userDashboard/body.dart';
-import 'scheduledEvents/body.dart';
+//import 'principalSide/principal_side_permission_screen.dart';
+//import 'landingPage/body.dart';
+//import 'userDashboard/body.dart';
+//import 'scheduledEvents/body.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -13,11 +15,16 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+
+  final User? user = Auth().currentUser;
+  Future<void> signOut() async {
+    await Auth().signOut();
+  }
 
   // This widget is the root of your application.
   @override
