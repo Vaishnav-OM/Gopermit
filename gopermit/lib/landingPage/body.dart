@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:gop2/loginPage/login_page.dart';
+// ignore: depend_on_referenced_packages
+import '/loginPage/login_page.dart';
+import "package:gop2/scheduledEvents/body.dart";
 import 'package:gop2/services/event_json.dart';
 import '../services/allevent_json.dart';
 import '../services/event_json.dart';
@@ -200,94 +202,102 @@ class EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 200,
-      margin: const EdgeInsets.only(right: 16.0),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: const BorderRadius.vertical(
-              top: Radius.circular(10.0),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => scheduledDetails()),
+        );
+      },
+      child: Container(
+        width: 200,
+        margin: const EdgeInsets.only(right: 16.0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ClipRRect(
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(10.0),
+              ),
+              child: Image.asset(
+                'assets/images/eventcard.jpg',
+                height: 150.0,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
             ),
-            child: Image.asset(
-              'assets/images/eventcard.jpg',
-              height: 150.0,
-              width: double.infinity,
-              fit: BoxFit.cover,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  event.eventName,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16.0,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    event.eventName,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16.0,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 4.0),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.calendar_today,
-                      size: 14.0,
-                      color: Colors.grey[600],
-                    ),
-                    const SizedBox(width: 4.0),
-                    Text(
-                      'Event Date',
-                      style: TextStyle(
+                  const SizedBox(height: 4.0),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.calendar_today,
+                        size: 14.0,
                         color: Colors.grey[600],
-                        fontSize: 12.0,
                       ),
-                    ),
-                    const SizedBox(width: 8.0),
-                    Icon(
-                      Icons.access_time,
-                      size: 14.0,
-                      color: Colors.grey[600],
-                    ),
-                    const SizedBox(width: 4.0),
-                    Text(
-                      'Event Time',
-                      style: TextStyle(
+                      const SizedBox(width: 4.0),
+                      Text(
+                        'Event Date',
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 12.0,
+                        ),
+                      ),
+                      const SizedBox(width: 8.0),
+                      Icon(
+                        Icons.access_time,
+                        size: 14.0,
                         color: Colors.grey[600],
-                        fontSize: 12.0,
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 4.0),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.location_on,
-                      size: 14.0,
-                      color: Colors.grey[600],
-                    ),
-                    const SizedBox(width: 4.0),
-                    Text(
-                      event.eventLocation,
-                      style: TextStyle(
+                      const SizedBox(width: 4.0),
+                      Text(
+                        'Event Time',
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 12.0,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 4.0),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.location_on,
+                        size: 14.0,
                         color: Colors.grey[600],
-                        fontSize: 11.0,
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                      const SizedBox(width: 4.0),
+                      Text(
+                        event.eventLocation,
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 11.0,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:gop2/services/addevent.dart';
-import 'package:gop2/services/allevent_json.dart';
-import 'package:gop2/services/event_json.dart';
-import 'package:gop2/size_config.dart';
+import '/services/addevent.dart';
+//import 'package:gopermit/services/allevent_json.dart';
+//import 'package:gopermit/services/event_json.dart';
+import '/size_config.dart';
 import 'background.dart';
 // import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
@@ -115,17 +114,22 @@ class _BodyState extends State<Body> {
     Size size = MediaQuery.of(context).size;
     return Stack(
       children: [
-        const background(),
+        background(),
         CustomScrollView(
           slivers: <Widget>[
-            const SliverAppBar(
-              title: Text(
+            SliverAppBar(
+              title: const Text(
                 'New Event',
                 style: TextStyle(color: Colors.white, fontSize: 28),
               ),
-              leading: Icon(
-                Icons.arrow_back,
-                color: Colors.white,
+              leading: IconButton(
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
               ),
               pinned: false,
               snap: false,
@@ -171,11 +175,11 @@ class _BodyState extends State<Body> {
                             ),
                           ),
                           kheight,
-                          Row(
+                          const Row(
                             children: [
-                              const TitleWithDetailWidget(title: "Start Time"),
+                              TitleWithDetailWidget(title: "Start Time"),
                               kwidth,
-                              const TitleWithDetailWidget(title: "End Time")
+                              TitleWithDetailWidget(title: "End Time")
                             ],
                           ),
                           Row(
@@ -295,7 +299,7 @@ class TitleWithDetailWidget extends StatelessWidget {
 
 class EventTextBox extends StatelessWidget {
   final TextEditingController controller;
-  EventTextBox({required this.controller});
+  const EventTextBox({required this.controller});
 
   @override
   Widget build(BuildContext context) {
