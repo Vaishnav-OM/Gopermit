@@ -1,7 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import '/loginPage/login_page.dart';
 import "package:gop2/scheduledEvents/body.dart";
+import 'package:gop2/services/event_json.dart';
+import '../services/allevent_json.dart';
+import '../services/event_json.dart';
+
 // void main() => runApp(const MyApp());
 
 // class MyApp extends StatelessWidget {
@@ -16,9 +21,60 @@ import "package:gop2/scheduledEvents/body.dart";
 //     );
 //   }
 // }
+Future<List<Eventonperm>> getAllEvents() async {
+  try {
+    QuerySnapshot eventsSnapshot =
+        await FirebaseFirestore.instance.collection('events').get();
+    List<Eventonperm> events = [];
+    List<Eventonperm> unapprovedEvents = [];
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+    eventsSnapshot.docs.forEach((doc) {
+      events.add(Eventonperm(
+        id: doc.id,
+        eventName: doc['eventName'],
+        organizingSociety: doc['organizingSociety'],
+        eventLocation: doc['eventLocation'],
+        // scheduledDate: doc['scheduledDate'].toDate(),
+        // startTime: TimeOfDay.fromDateTime(doc['startTime'].toDate()),
+        // endTime: TimeOfDay.fromDateTime(doc['endTime'].toDate()),
+        eventDescription: doc['eventDescription'],
+        posterImageUrl: doc['posterImageUrl'],
+        pointOfContact: doc['pointOfContact'],
+        pointOfContactPhone: doc['pointOfContactPhone'],
+        comment: doc['comment'],
+        isApproved: doc['isApproved'],
+      ));
+    });
+
+    return events;
+  } catch (e) {
+    print(e);
+    return [];
+  }
+}
+
+class HomeScreen extends StatefulWidget {
+  HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  List<Eventonperm> events = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchEvents();
+  }
+
+  Future<void> fetchEvents() async {
+    List<Eventonperm> fetchedEvents = await getAllEvents();
+    setState(() {
+      events = fetchedEvents;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -104,9 +160,10 @@ class HomeScreen extends StatelessWidget {
             Expanded(
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: 5,
+                itemCount: events.length,
                 itemBuilder: (context, index) {
-                  return const EventCard();
+                  Eventonperm event = events[index];
+                  return EventCard(event: event);
                 },
               ),
             ),
@@ -123,9 +180,10 @@ class HomeScreen extends StatelessWidget {
             Expanded(
               child: ListView.builder(
                 scrollDirection: Axis.vertical,
-                itemCount: 5,
+                itemCount: events.length,
                 itemBuilder: (context, index) {
-                  return const EventOnHoldCard();
+                  Eventonperm event = events[index];
+                  return EventOnHoldCard(event: event);
                 },
               ),
             ),
@@ -139,7 +197,8 @@ class HomeScreen extends StatelessWidget {
 }
 
 class EventCard extends StatelessWidget {
-  const EventCard({super.key});
+  final Eventonperm event;
+  const EventCard({super.key, required this.event});
 
   @override
   Widget build(BuildContext context) {
@@ -166,7 +225,7 @@ class EventCard extends StatelessWidget {
               ),
               child: Image.asset(
                 'assets/images/eventcard.jpg',
-                height: 200.0,
+                height: 150.0,
                 width: double.infinity,
                 fit: BoxFit.cover,
               ),
@@ -176,8 +235,8 @@ class EventCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Event Title',
+                  Text(
+                    event.eventName,
                     style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -226,10 +285,10 @@ class EventCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 4.0),
                       Text(
-                        'Event Location',
+                        event.eventLocation,
                         style: TextStyle(
                           color: Colors.grey[600],
-                          fontSize: 12.0,
+                          fontSize: 11.0,
                         ),
                       ),
                     ],
@@ -245,7 +304,8 @@ class EventCard extends StatelessWidget {
 }
 
 class EventOnHoldCard extends StatelessWidget {
-  const EventOnHoldCard({Key? key}) : super(key: key);
+  final Eventonperm event;
+  const EventOnHoldCard({super.key, required this.event});
 
   @override
   Widget build(BuildContext context) {
@@ -271,8 +331,8 @@ class EventOnHoldCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Event Title',
+                  Text(
+                    event.eventName,
                     style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -281,7 +341,7 @@ class EventOnHoldCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 4.0),
                   Text(
-                    'Event Organizer',
+                    event.organizingSociety,
                     style: TextStyle(
                       color: Colors.grey[600],
                       fontSize: 12.0,

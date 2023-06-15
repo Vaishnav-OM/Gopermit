@@ -1,5 +1,6 @@
 //import 'package:auth/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gop2/landingPage/body.dart';
 //import 'newPermission/new_permission.dart';
 import 'package:gop2/loginPage/login_page.dart';
 //import 'principalSide/principal_side_permission_screen.dart';
@@ -8,7 +9,6 @@ import 'package:gop2/loginPage/login_page.dart';
 //import 'scheduledEvents/body.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:gop2/landingPage/body.dart';
 import 'firebase_options.dart';
 
 void main() async {
