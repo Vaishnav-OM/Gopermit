@@ -17,17 +17,23 @@ class scheduledDetails extends StatelessWidget {
           //       image: AssetImage("assets/images/bg_design.png")),
           // ),
           child: CustomScrollView(slivers: <Widget>[
-            const SliverAppBar(
-              title: Text(
+            SliverAppBar(
+              title: const Text(
                 'Introduction to IEEEXtreme',
                 style: TextStyle(
-                    color: Colors.white,
-                    // fontFamily: "Poppins-Medium",
-                    fontSize: 20),
+                  color: Colors.white,
+                  // fontFamily: "Poppins-Medium",
+                  fontSize: 20,
+                ),
               ),
-              leading: Icon(
-                Icons.arrow_back,
-                color: Colors.white,
+              leading: IconButton(
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
               ),
               pinned: false,
               snap: false,
