@@ -1,4 +1,4 @@
-package com.example.gopermit
+package com.example.gop2
 
 import io.flutter.embedding.android.FlutterActivity
 

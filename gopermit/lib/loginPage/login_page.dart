@@ -1,12 +1,12 @@
-//import 'package:auth/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gopermit/landingPage/body.dart';
-import 'package:gopermit/newPermission/components/background.dart';
-import 'package:gopermit/principalSide/principal_side_permission_screen.dart';
+import 'package:gop2/landingPage/body.dart';
+import 'package:gop2/newPermission/components/background.dart';
+import 'package:gop2/principalSide/principal_side_permission_screen.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
+
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
 

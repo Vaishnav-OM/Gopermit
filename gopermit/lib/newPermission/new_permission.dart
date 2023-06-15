@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:gopermit/newPermission/components/body.dart';
+import 'package:gop2/newPermission/components/body.dart';
 import '../size_config.dart';
 
 class newPermission extends StatefulWidget {

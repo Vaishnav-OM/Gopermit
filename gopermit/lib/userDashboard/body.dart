@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gopermit/scheduledEvents/body.dart';
+import 'package:gop2/scheduledEvents/body.dart';
 // import 'package:google_fonts/google_fonts.dart';
 //import 'package:flutter/src/painting/image_resolution.dart';
 
