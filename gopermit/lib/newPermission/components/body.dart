@@ -326,10 +326,12 @@ class EventTextBox extends StatelessWidget {
 // import 'package:flutter/material.dart';
 // import 'package:flutter/src/widgets/framework.dart';
 // import 'package:flutter/src/widgets/placeholder.dart';
-// import 'package:gopermit/size_config.dart';
+// import 'package:gop2/services/addevent.dart';
+// import 'package:gop2/services/allevent_json.dart';
+// import 'package:gop2/services/event_json.dart';
+// import 'package:gop2/size_config.dart';
 // import 'background.dart';
-// import '../../services/addevent.dart';
-// import '../../services/event_json.dart';
+// // import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 // class Body extends StatefulWidget {
 //   const Body({super.key});
@@ -347,45 +349,116 @@ class EventTextBox extends StatelessWidget {
 // );
 
 // class _BodyState extends State<Body> {
-//   final _formKey = GlobalKey<FormState>();
+//   void addEventFromFields(
+//       TextEditingController eventNameController,
+//       TextEditingController organizingSocietyController,
+//       TextEditingController eventLocationController,
+//       TextEditingController eventDescriptionController,
+//       TextEditingController dateController,
+//       TextEditingController startController,
+//       TextEditingController endController,
+//       TextEditingController posterImageUrlController,
+//       TextEditingController pointOfContactController,
+//       TextEditingController pointOfContactPhoneController) {
+//     String eventName = eventNameController.text;
+//     String organizingSociety = organizingSocietyController.text;
+//     String eventLocation = eventLocationController.text;
+//     String eventDescription = eventDescriptionController.text;
 
-//   String eventName = '';
-//   String organizingSociety = '';
-//   String eventLocation = '';
-//   DateTime scheduledDate = DateTime.now();
-//   TimeOfDay startTime = TimeOfDay.now();
-//   TimeOfDay endTime = TimeOfDay.now();
-//   String eventDescription = '';
-//   String pointOfContact = '';
-//   String pointOfContactPhone = '';
-//   String posterImageUrl = '';
-//   bool isApproved = false;
-//   void addEventtosubmit() {
-//     if (_formKey.currentState?.validate() ?? false) {
-//       // Create an Event object with the entered data
-//       Eventonperm newEvent = Eventonperm(
+//     String startformattedTime =
+//         startselectedTime != null ? startselectedTime!.format(context) : '';
+//     String startTime = startformattedTime;
+
+//     String endformattedTime =
+//         startselectedTime != null ? startselectedTime!.format(context) : '';
+//     String endtime = endformattedTime;
+
+//     String posterImageUrl = posterImageUrlController.text;
+//     String pointOfContact = pointOfContactController.text;
+//     String pointOfContactPhone = pointOfContactPhoneController.text;
+
+// //DateTime scheduledDate =
+// // startTime: startTime,
+// //         endTime: endTime,
+
+// // ... retrieve values from other text controllers for remaining fields
+//     addEvent(Eventonperm(
 //         eventName: eventName,
 //         organizingSociety: organizingSociety,
 //         eventLocation: eventLocation,
-//         scheduledDate: scheduledDate,
+//         scheduledDate: startTime,
 //         startTime: startTime,
-//         endTime: endTime,
+//         endTime: endtime,
 //         eventDescription: eventDescription,
 //         posterImageUrl: posterImageUrl,
 //         pointOfContact: pointOfContact,
-//         pointOfContactPhone: pointOfContactPhone,
-//         isApproved: isApproved,
-//       );
+//         pointOfContactPhone: pointOfContactPhone));
 
-//       // Call the addEvent function to save the event to the backend
-//       addEvent(newEvent);
+// // Call the addEvent function to add the event to Firestore
+//   }
 
-//       // Clear the form fields
+//   final TextEditingController eventNameController = TextEditingController();
+//   final TextEditingController organizingSocietyController =
+//       TextEditingController();
+//   final TextEditingController eventLocationController = TextEditingController();
+//   final TextEditingController eventDescriptionController =
+//       TextEditingController();
+//   final TextEditingController posterImageUrlController =
+//       TextEditingController();
+//   final TextEditingController pointOfContactController =
+//       TextEditingController();
 
-//       // Show a success message or navigate to another page
-//       // ...
+//   final TextEditingController dateController = TextEditingController();
+//   final TextEditingController startController = TextEditingController();
+//   final TextEditingController endController = TextEditingController();
+//   final TextEditingController pointOfContactPhoneController =
+//       TextEditingController();
+
+//   DateTime? selectedDate;
+
+//   Future<void> _selectDate(BuildContext context) async {
+//     final DateTime? pickedDate = await showDatePicker(
+//       context: context,
+//       initialDate: selectedDate ?? DateTime.now(),
+//       firstDate: DateTime.now(),
+//       lastDate: DateTime(2100),
+//     );
+//     if (pickedDate != null && pickedDate != selectedDate) {
+//       setState(() {
+//         selectedDate = pickedDate;
+//       });
 //     }
 //   }
+
+//   TimeOfDay? startselectedTime;
+
+//   Future<void> _selectTime(BuildContext context) async {
+//     final TimeOfDay? pickedTime = await showTimePicker(
+//       context: context,
+//       initialTime: startselectedTime ?? TimeOfDay.now(),
+//     );
+//     if (pickedTime != null && pickedTime != startselectedTime) {
+//       setState(() {
+//         startselectedTime = pickedTime;
+//       });
+//     }
+//   }
+
+//   TimeOfDay? endselectedTime;
+
+//   Future<void> _endselectTime(BuildContext context) async {
+//     final TimeOfDay? pickedTime = await showTimePicker(
+//       context: context,
+//       initialTime: startselectedTime ?? TimeOfDay.now(),
+//     );
+//     if (pickedTime != null && pickedTime != startselectedTime) {
+//       setState(() {
+//         startselectedTime = pickedTime;
+//       });
+//     }
+//   }
+
+//   // Save the scheduledDateTime to Firebase or use it as needed
 
 //   @override
 //   Widget build(BuildContext context) {
@@ -426,54 +499,27 @@ class EventTextBox extends StatelessWidget {
 //                         crossAxisAlignment: CrossAxisAlignment.start,
 //                         children: [
 //                           const TitleWithDetailWidget(title: 'Event Name'),
-//                           EventTextBox(
-//                             onChanged: (value) {
-//                               setState(() {
-//                                 eventName = value;
-//                               });
-//                             },
-//                             validator: (value) {
-//                               if (value == null || value.isEmpty) {
-//                                 return 'Please enter the event name';
-//                               }
-//                               return null;
-//                             },
-//                           ),
+//                           EventTextBox(controller: eventNameController),
 //                           const TitleWithDetailWidget(
 //                               title: "Organizing Society"),
 //                           EventTextBox(
-//                             onChanged: (value) {
-//                               setState(() {
-//                                 organizingSociety = value;
-//                               });
-//                             },
-//                             validator: (value) {
-//                               if (value == null || value.isEmpty) {
-//                                 return 'Please enter the event name';
-//                               }
-//                               return null;
-//                             },
+//                             controller: organizingSocietyController,
 //                           ),
 //                           const TitleWithDetailWidget(
 //                               title: "Event Location/ Utility Centre "),
 //                           EventTextBox(
-//                             onChanged: (value) {
-//                               setState(() {
-//                                 eventLocation = value;
-//                               });
-//                             },
-//                             validator: (value) {
-//                               if (value == null || value.isEmpty) {
-//                                 return 'Please enter the event name';
-//                               }
-//                               return null;
-//                             },
+//                             controller: eventLocationController,
 //                           ),
 //                           const TitleWithDetailWidget(title: "Scheduled Dates"),
-//                           Container(
-//                             height: 200,
-//                             width: 250,
-//                             decoration: BoxDecoration(border: Border.all()),
+//                           TextField(
+//                             readOnly: true,
+//                             decoration: InputDecoration(
+//                               labelText: 'Scheduled Date',
+//                               suffixIcon: IconButton(
+//                                 onPressed: () => _selectDate(context),
+//                                 icon: Icon(Icons.calendar_today),
+//                               ),
+//                             ),
 //                           ),
 //                           kheight,
 //                           Row(
@@ -485,47 +531,29 @@ class EventTextBox extends StatelessWidget {
 //                           ),
 //                           Row(
 //                             children: [
-//                               SizedBox(
-//                                 height: 40,
-//                                 width: 90,
-//                                 child: TextField(
-//                                   onChanged: (value) {
-//                                     setState(() {
-//                                       startTime = TimeOfDay.now();
-//                                     });
-//                                   },
-//                                   // validator: (value) {
-//                                   //   if (value == null || value.isEmpty) {
-//                                   //     return 'Please enter the event name';
-//                                   //   }
-//                                   //   return null;
-//                                   // },
-//                                   decoration: InputDecoration(
-//                                       border: OutlineInputBorder(
-//                                         borderRadius: BorderRadius.circular(5),
-//                                       ),
-//                                       filled: true,
-//                                       fillColor: Colors.white70),
+//                               TextField(
+//                                 readOnly: true,
+//                                 controller: startController,
+//                                 decoration: InputDecoration(
+//                                   labelText: 'Start Time',
+//                                   suffixIcon: IconButton(
+//                                     onPressed: () => _selectTime(context),
+//                                     icon: Icon(Icons.access_time),
+//                                   ),
 //                                 ),
 //                               ),
 //                               const SizedBox(width: 25),
-//                               SizedBox(
-//                                 height: 40,
-//                                 width: 90,
-//                                 child: TextField(
-//                                   onChanged: (value) {
-//                                     setState(() {
-//                                       endTime = TimeOfDay.now();
-//                                     });
-//                                   },
-//                                   decoration: InputDecoration(
-//                                       border: OutlineInputBorder(
-//                                         borderRadius: BorderRadius.circular(5),
-//                                       ),
-//                                       filled: true,
-//                                       fillColor: Colors.white70),
-//                                 ),
-//                               ),
+//                               // TextFormField(
+//                               //   readOnly: true,
+//                               //   controller: endController,
+//                               //   decoration: InputDecoration(
+//                               //     labelText: 'End Time',
+//                               //     suffixIcon: IconButton(
+//                               //       onPressed: () => _endselectTime(context),
+//                               //       icon: Icon(Icons.access_time),
+//                               //     ),
+//                               //   ),
+//                               // ),
 //                             ],
 //                           ),
 //                           kheight,
@@ -536,17 +564,7 @@ class EventTextBox extends StatelessWidget {
 //                               SizedBox(
 //                                 height: 200,
 //                                 child: TextField(
-//                                   onChanged: (value) {
-//                                     setState(() {
-//                                       eventDescription = value;
-//                                     });
-//                                   },
-//                                   // validator: (value) {
-//                                   //   if (value == null || value.isEmpty) {
-//                                   //     return 'Please enter the event name';
-//                                   //   }
-//                                   //   return null;
-//                                   // },
+//                                   controller: eventDescriptionController,
 //                                   maxLines: 20,
 //                                   decoration: InputDecoration(
 //                                       border: OutlineInputBorder(
@@ -566,48 +584,13 @@ class EventTextBox extends StatelessWidget {
 //                           ),
 //                           kheight,
 //                           const TitleWithDetailWidget(title: "Event Poster"),
-//                           EventTextBox(
-//                             onChanged: (value) {
-//                               setState(() {
-//                                 posterImageUrl = value;
-//                               });
-//                             },
-//                             validator: (value) {
-//                               if (value == null || value.isEmpty) {
-//                                 return 'Please enter the event name';
-//                               }
-//                               return null;
-//                             },
-//                           ),
+//                           EventTextBox(controller: posterImageUrlController),
 //                           const TitleWithDetailWidget(
 //                               title: "Point of Contact with Class"),
-//                           EventTextBox(
-//                             onChanged: (value) {
-//                               setState(() {
-//                                 pointOfContact = value;
-//                               });
-//                             },
-//                             validator: (value) {
-//                               if (value == null || value.isEmpty) {
-//                                 return 'Please enter the event name';
-//                               }
-//                               return null;
-//                             },
-//                           ),
+//                           EventTextBox(controller: pointOfContactController),
 //                           const TitleWithDetailWidget(title: "Phone Number"),
 //                           EventTextBox(
-//                             onChanged: (value) {
-//                               setState(() {
-//                                 pointOfContactPhone = value;
-//                               });
-//                             },
-//                             validator: (value) {
-//                               if (value == null || value.isEmpty) {
-//                                 return 'Please enter the event name';
-//                               }
-//                               return null;
-//                             },
-//                           ),
+//                               controller: pointOfContactPhoneController),
 //                           Center(
 //                             child: TextButton(
 //                               style: TextButton.styleFrom(
@@ -615,7 +598,17 @@ class EventTextBox extends StatelessWidget {
 //                                   backgroundColor:
 //                                       Color.fromARGB(255, 209, 209, 209)),
 //                               onPressed: () {
-//                                 addEventtosubmit();
+//                                 addEventFromFields(
+//                                     eventNameController,
+//                                     organizingSocietyController,
+//                                     eventLocationController,
+//                                     eventDescriptionController,
+//                                     dateController,
+//                                     startController,
+//                                     endController,
+//                                     posterImageUrlController,
+//                                     pointOfContactController,
+//                                     pointOfContactPhoneController);
 //                               },
 //                               child: Text(
 //                                 "Submit",
@@ -665,13 +658,8 @@ class EventTextBox extends StatelessWidget {
 // }
 
 // class EventTextBox extends StatelessWidget {
-//   final ValueChanged<String>? onChanged;
-//   final FormFieldValidator<String>? validator;
-//   const EventTextBox({
-//     Key? key,
-//     this.onChanged,
-//     this.validator,
-//   }) : super(key: key);
+//   final TextEditingController controller;
+//   EventTextBox({required this.controller});
 
 //   @override
 //   Widget build(BuildContext context) {
@@ -680,6 +668,7 @@ class EventTextBox extends StatelessWidget {
 //         SizedBox(
 //           height: 48,
 //           child: TextField(
+//             controller: controller,
 //             decoration: InputDecoration(
 //                 border: OutlineInputBorder(
 //                   borderRadius: BorderRadius.circular(10.0),
@@ -697,3 +686,4 @@ class EventTextBox extends StatelessWidget {
 //     );
 //   }
 // }
+
