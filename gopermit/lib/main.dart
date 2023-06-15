@@ -8,7 +8,7 @@ import 'package:gop2/loginPage/login_page.dart';
 //import 'scheduledEvents/body.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:gop2/newPermission/new_permission.dart';
+import 'package:gop2/landingPage/body.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: newPermission(),
+      home: HomeScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

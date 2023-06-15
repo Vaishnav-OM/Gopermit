@@ -1,8 +1,9 @@
+// ignore: depend_on_referenced_packages
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gop2/landingPage/body.dart';
-import 'package:gop2/newPermission/components/background.dart';
-import 'package:gop2/principalSide/principal_side_permission_screen.dart';
+import 'package:gop2/userDashboard/body.dart';
+import '/newPermission/components/background.dart';
+import '/principalSide/principal_side_permission_screen.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
@@ -17,13 +18,17 @@ class LoginPage extends StatelessWidget {
         email: usernameController.text,
         password: passwordController.text,
       );
-      // ignore: use_build_context_synchronously
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const HomeScreen(),
-        ),
-      );
+      if (userCredential.user != null) {
+        // User is authenticated, navigate to the user dashboard
+        // ignore: use_build_context_synchronously
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                UserDashBoard(), // Replace with your user dashboard screen
+          ),
+        );
+      }
     } catch (e) {
       // Handle login error
       // ignore: avoid_print
@@ -52,14 +57,19 @@ class LoginPage extends StatelessWidget {
         const background(),
         CustomScrollView(
           slivers: <Widget>[
-            const SliverAppBar(
-              title: Text(
+            SliverAppBar(
+              title: const Text(
                 'GoPermit',
                 style: TextStyle(color: Colors.white, fontSize: 28),
               ),
-              leading: Icon(
-                Icons.arrow_back,
-                color: Colors.white,
+              leading: IconButton(
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
               ),
               pinned: false,
               snap: false,

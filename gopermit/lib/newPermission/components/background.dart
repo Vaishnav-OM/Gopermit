@@ -1,8 +1,9 @@
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+//import 'package:flutter/src/widgets/framework.dart';
+//import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/material.dart';
-import 'package:gop2/size_config.dart';
+import '/size_config.dart';
 
+// ignore: camel_case_types
 class background extends StatelessWidget {
   const background({super.key});
 
@@ -26,12 +27,12 @@ class background extends StatelessWidget {
             Container(
               height: size.height * 0.40,
               width: double.infinity,
-              color: Color.fromRGBO(0, 0, 0, 0.1),
+              color: const Color.fromRGBO(0, 0, 0, 0.1),
             )
           ],
         ),
       ),
     );
-    return const Placeholder();
+    //return const Placeholder();
   }
 }

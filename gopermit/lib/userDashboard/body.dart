@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gop2/newPermission/new_permission.dart';
 import 'package:gop2/scheduledEvents/body.dart';
 // import 'package:google_fonts/google_fonts.dart';
 //import 'package:flutter/src/painting/image_resolution.dart';
@@ -26,12 +27,6 @@ class DashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.of(context).pop(MaterialApp.router());
-          },
-        ),
         centerTitle: true,
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
@@ -138,6 +133,15 @@ class DashboardScreen extends StatelessWidget {
             ),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => newPermission()),
+          );
+        },
+        child: const Icon(Icons.add),
       ),
     );
     // ),

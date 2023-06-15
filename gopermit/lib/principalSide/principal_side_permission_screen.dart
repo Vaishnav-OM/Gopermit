@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gop2/newPermission/components/background.dart';
+// ignore: depend_on_referenced_packages
+import '/newPermission/components/background.dart';
 
 const kheight = SizedBox(
   height: 15,
