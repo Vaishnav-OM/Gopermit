@@ -1,0 +1,23 @@
+import 'event_json.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+Future<void> addEvent(Eventonperm event) async {
+  CollectionReference eventsCollection =
+      FirebaseFirestore.instance.collection('events');
+  DocumentReference newEventDocRef = await eventsCollection.add({
+    'eventName': event.eventName,
+    'organizingSociety': event.organizingSociety,
+    'eventLocation': event.eventLocation,
+    'scheduledDate': event.scheduledDate,
+    'startTime': event.startTime,
+    'endTime': event.endTime,
+    'eventDescription': event.eventDescription,
+    'posterImageUrl': event.posterImageUrl,
+    'pointOfContact': event.pointOfContact,
+    'pointOfContactPhone': event.pointOfContactPhone,
+    'comment': event.comment,
+    'isApproved': event.isApproved,
+  });
+  event.id = newEventDocRef.id;
+  print(event.id);
+}

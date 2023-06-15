@@ -1,7 +1,7 @@
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/material.dart';
-import 'package:gopermit/size_config.dart';
+import 'package:gop2/size_config.dart';
 
 class background extends StatelessWidget {
   const background({super.key});
@@ -18,10 +18,10 @@ class background extends StatelessWidget {
               height: size.height * 0.60,
               width: double.infinity,
               color: Colors.black,
-              child: Image.asset(
-                "assets/images/bg_design.png",
-                fit: BoxFit.fill,
-              ),
+              // child: Image.asset(
+              //   "assets/images/bg_design.png",
+              //   fit: BoxFit.fill,
+              // ),
             ),
             Container(
               height: size.height * 0.40,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gopermit/newPermission/components/background.dart';
+import 'package:gop2/newPermission/components/background.dart';
 
 const kheight = SizedBox(
   height: 15,
