@@ -12,6 +12,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gop2/principalSide/principal_side_permission_screen.dart';
 import 'approvedRequest/body.dart';
 import 'firebase_options.dart';
+import 'newPermission/new_permission.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

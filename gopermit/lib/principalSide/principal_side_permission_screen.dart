@@ -17,15 +17,17 @@ class PrincipalSidePermissionScreen extends StatelessWidget {
         const background(),
         CustomScrollView(
           slivers: <Widget>[
-            const SliverAppBar(
+            SliverAppBar(
               title: Text(
                 'Nirmana',
                 style: TextStyle(color: Colors.white, fontSize: 28),
               ),
-              leading: Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-              ),
+              leading: IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  color: Colors.white,
+                  onPressed: () {
+                    Navigator.pop(context);
+                  }),
               pinned: false,
               snap: false,
               floating: false,

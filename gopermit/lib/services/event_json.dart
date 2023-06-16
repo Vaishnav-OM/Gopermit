@@ -5,7 +5,7 @@ class Eventonperm {
   String eventName;
   String organizingSociety;
   String eventLocation;
-  // String scheduledDate;
+  DateTime? scheduledDate;
   // String startTime;
   // String endTime;
   String eventDescription;
