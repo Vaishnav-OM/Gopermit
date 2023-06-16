@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:gop2/loginPage/login_page.dart';
 import 'package:gop2/newPermission/new_permission.dart';
 import 'package:gop2/scheduledEvents/body.dart';
+import 'package:gop2/approvedRequest/body.dart';
+import 'package:gop2/rejectedRequest/body.dart';
+import 'package:gop2/holdRequests/body.dart';
 // import 'package:google_fonts/google_fonts.dart';
 //import 'package:flutter/src/painting/image_resolution.dart';
 
@@ -16,6 +20,7 @@ class UserDashBoard extends StatelessWidget {
     return const MaterialApp(
       title: 'Go Permit',
       home: DashboardScreen(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -41,7 +46,16 @@ class DashboardScreen extends StatelessWidget {
 
         //   ),
         // ),
-
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => LoginPage()));
+          },
+        ),
         title: const Text(
           'Dashboard',
           style: TextStyle(
@@ -79,6 +93,7 @@ class DashboardScreen extends StatelessWidget {
                     _buildMetricBlock1(
                       title: 'Requests Approved',
                       value: '6',
+                      context: context,
                     ),
                     const SizedBox(
                       height: 8.0,
@@ -93,6 +108,7 @@ class DashboardScreen extends StatelessWidget {
                     _buildMetricBlock2(
                       title: 'Requests Rejected',
                       value: '2',
+                      context: context,
                     ),
                     const SizedBox(
                       height: 8.0,
@@ -101,6 +117,7 @@ class DashboardScreen extends StatelessWidget {
                     _buildMetricBlock3(
                       title: 'Requests on Hold',
                       value: '2',
+                      context: context,
                     ),
                     const SizedBox(
                       height: 8.0,
@@ -197,139 +214,163 @@ class DashboardScreen extends StatelessWidget {
   Widget _buildMetricBlock1({
     required String title,
     required String value,
+    required BuildContext context,
   }) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      width: 144.0,
-      height: 190.0,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8.0),
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 1,
-            blurRadius: 5,
-            offset: const Offset(0, 3),
+    return GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => appReq()),
+          );
+        },
+        child: Container(
+          padding: EdgeInsets.all(10),
+          width: 144.0,
+          height: 190.0,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8.0),
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 1,
+                blurRadius: 5,
+                offset: const Offset(0, 3),
+              ),
+            ],
           ),
-        ],
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(
-              // fontFamily: GoogleFonts.poppins().fontFamily,
-              fontWeight: FontWeight.bold,
-              fontSize: 19.0,
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  // fontFamily: GoogleFonts.poppins().fontFamily,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 19.0,
+                ),
+              ),
+              const SizedBox(height: 16.0),
+              Text(
+                value,
+                style: const TextStyle(
+                  // fontFamily: GoogleFonts.poppins().fontFamily,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 40.0,
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 16.0),
-          Text(
-            value,
-            style: const TextStyle(
-              // fontFamily: GoogleFonts.poppins().fontFamily,
-              fontWeight: FontWeight.bold,
-              fontSize: 40.0,
-            ),
-          ),
-        ],
-      ),
-    );
+        ));
   }
 
   Widget _buildMetricBlock2({
     required String title,
     required String value,
+    required BuildContext context,
   }) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      width: 140.0,
-      height: 166.0,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8.0),
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 1,
-            blurRadius: 5,
-            offset: const Offset(0, 3),
+    return GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => appRej()),
+          );
+        },
+        child: Container(
+          padding: EdgeInsets.all(10),
+          width: 140.0,
+          height: 166.0,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8.0),
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 1,
+                blurRadius: 5,
+                offset: const Offset(0, 3),
+              ),
+            ],
           ),
-        ],
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(
-              // fontFamily: GoogleFonts.poppins().fontFamily,
-              fontWeight: FontWeight.bold,
-              fontSize: 19.0,
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  // fontFamily: GoogleFonts.poppins().fontFamily,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 19.0,
+                ),
+              ),
+              const SizedBox(height: 8.0),
+              Text(
+                value,
+                style: const TextStyle(
+                  // fontFamily: GoogleFonts.poppins().fontFamily,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 40.0,
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 8.0),
-          Text(
-            value,
-            style: const TextStyle(
-              // fontFamily: GoogleFonts.poppins().fontFamily,
-              fontWeight: FontWeight.bold,
-              fontSize: 40.0,
-            ),
-          ),
-        ],
-      ),
-    );
+        ));
   }
 
   Widget _buildMetricBlock3({
     required String title,
     required String value,
+    required BuildContext context,
   }) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      width: 167.0,
-      height: 131.0,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8.0),
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 1,
-            blurRadius: 5,
-            offset: const Offset(0, 3),
+    return GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => appHold()),
+          );
+        },
+        child: Container(
+          padding: EdgeInsets.all(10),
+          width: 167.0,
+          height: 131.0,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8.0),
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 1,
+                blurRadius: 5,
+                offset: const Offset(0, 3),
+              ),
+            ],
           ),
-        ],
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(
-              // fontFamily: GoogleFonts.poppins().fontFamily,
-              fontWeight: FontWeight.bold,
-              fontSize: 19.0,
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  // fontFamily: GoogleFonts.poppins().fontFamily,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 19.0,
+                ),
+              ),
+              const SizedBox(height: 16.0),
+              Text(
+                value,
+                style: const TextStyle(
+                  // fontFamily: GoogleFonts.poppins().fontFamily,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 40.0,
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 16.0),
-          Text(
-            value,
-            style: const TextStyle(
-              // fontFamily: GoogleFonts.poppins().fontFamily,
-              fontWeight: FontWeight.bold,
-              fontSize: 40.0,
-            ),
-          ),
-        ],
-      ),
-    );
+        ));
   }
 }
 
@@ -342,8 +383,12 @@ class EventOnHoldCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Navigator.push(context,
-        //     MaterialPageRoute(builder: (context) => scheduledDetails()));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => scheduledDetails(
+                      eventId: AutofillHints.addressState,
+                    )));
       },
       child: Container(
         width: double.infinity,
@@ -361,13 +406,13 @@ class EventOnHoldCard extends StatelessWidget {
             //color: Colors.grey[300],
             //margin: const EdgeInsets.all(8.0),
             //),
-            Expanded(
+            const Expanded(
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(8.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'AMA Session with Devikaa D',
                       style: TextStyle(
                         color: Colors.black,
@@ -375,17 +420,17 @@ class EventOnHoldCard extends StatelessWidget {
                         fontSize: 16.0,
                       ),
                     ),
-                    const SizedBox(height: 4.0),
-                    const Text(
+                    SizedBox(height: 4.0),
+                    Text(
                       'TinkerHub',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 12.0,
                       ),
                     ),
-                    const SizedBox(height: 4.0),
+                    SizedBox(height: 4.0),
                     Row(
-                      children: const [
+                      children: [
                         Icon(
                           Icons.calendar_today,
                           size: 14.0,
@@ -415,9 +460,9 @@ class EventOnHoldCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 4.0),
+                    SizedBox(height: 4.0),
                     Row(
-                      children: const [
+                      children: [
                         Icon(
                           Icons.location_on,
                           size: 14.0,

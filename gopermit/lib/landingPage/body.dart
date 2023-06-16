@@ -134,6 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            /*
             TextField(
               decoration: InputDecoration(
                 prefixIcon: const Icon(Icons.search, color: Colors.grey),
@@ -147,6 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
+            */
             const SizedBox(height: 16.0),
             const Text(
               'Scheduled Events',
@@ -310,106 +312,114 @@ class EventOnHoldCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: 90.0,
-            width: double.minPositive,
-            color: Colors.grey[300],
-            margin: const EdgeInsets.all(8.0),
+    return GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => scheduledDetails(eventId: event.id)),
+          );
+        },
+        child: Container(
+          width: double.infinity,
+          margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10.0),
           ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    event.eventName,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16.0,
-                    ),
-                  ),
-                  const SizedBox(height: 4.0),
-                  Text(
-                    event.organizingSociety,
-                    style: TextStyle(
-                      color: Colors.grey[600],
-                      fontSize: 12.0,
-                    ),
-                  ),
-                  const SizedBox(height: 4.0),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.calendar_today,
-                        size: 14.0,
-                        color: Colors.grey[600],
-                      ),
-                      const SizedBox(width: 4.0),
-                      Text(
-                        'Event Date',
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 12.0,
-                        ),
-                      ),
-                      const SizedBox(width: 8.0),
-                      Icon(
-                        Icons.access_time,
-                        size: 14.0,
-                        color: Colors.grey[600],
-                      ),
-                      const SizedBox(width: 4.0),
-                      Text(
-                        'Event Time',
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 12.0,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 4.0),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.location_on,
-                        size: 14.0,
-                        color: Colors.grey[600],
-                      ),
-                      const SizedBox(width: 4.0),
-                      Text(
-                        'Event Location',
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 12.0,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: 90.0,
+                width: double.minPositive,
+                color: Colors.grey[300],
+                margin: const EdgeInsets.all(8.0),
               ),
-            ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        event.eventName,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16.0,
+                        ),
+                      ),
+                      const SizedBox(height: 4.0),
+                      Text(
+                        event.organizingSociety,
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 12.0,
+                        ),
+                      ),
+                      const SizedBox(height: 4.0),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.calendar_today,
+                            size: 14.0,
+                            color: Colors.grey[600],
+                          ),
+                          const SizedBox(width: 4.0),
+                          Text(
+                            'Event Date',
+                            style: TextStyle(
+                              color: Colors.grey[600],
+                              fontSize: 12.0,
+                            ),
+                          ),
+                          const SizedBox(width: 8.0),
+                          Icon(
+                            Icons.access_time,
+                            size: 14.0,
+                            color: Colors.grey[600],
+                          ),
+                          const SizedBox(width: 4.0),
+                          Text(
+                            'Event Time',
+                            style: TextStyle(
+                              color: Colors.grey[600],
+                              fontSize: 12.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 4.0),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.location_on,
+                            size: 14.0,
+                            color: Colors.grey[600],
+                          ),
+                          const SizedBox(width: 4.0),
+                          Text(
+                            'Event Location',
+                            style: TextStyle(
+                              color: Colors.grey[600],
+                              fontSize: 12.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                height: 40.0,
+                width: 40.0,
+                color: Colors.grey[300],
+                margin: const EdgeInsets.all(8.0),
+              ),
+            ],
           ),
-          Container(
-            height: 40.0,
-            width: 40.0,
-            color: Colors.grey[300],
-            margin: const EdgeInsets.all(8.0),
-          ),
-        ],
-      ),
-    );
+        ));
   }
 }

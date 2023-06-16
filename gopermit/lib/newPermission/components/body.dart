@@ -50,18 +50,19 @@ class _BodyState extends State<Body> {
 //         endTime: endTime,
 
 // ... retrieve values from other text controllers for remaining fields
-    // addEvent(Eventonperm(
-    //     eventName: eventName,
-    //     organizingSociety: organizingSociety,
-    //     eventLocation: eventLocation,
-    //     // scheduledDate: scheduledDate,
-    //     startTime: TimeOfDay.now(),
-    //     endTime: TimeOfDay.now(),
-    //     eventDescription: eventDescription,
-    //     posterImageUrl: posterImageUrl,
-    //     pointOfContact: pointOfContact,
-    //     pointOfContactPhone: pointOfContactPhone));
-
+/*
+    addEvent(Eventonperm(
+        eventName: eventName,
+        organizingSociety: organizingSociety,
+        eventLocation: eventLocation,
+        // scheduledDate: scheduledDate,
+        startTime: TimeOfDay.now(),
+        endTime: TimeOfDay.now(),
+        eventDescription: eventDescription,
+        posterImageUrl: posterImageUrl,
+        pointOfContact: pointOfContact,
+        pointOfContactPhone: pointOfContactPhone));
+*/
 // Call the addEvent function to add the event to Firestore
   }
 
