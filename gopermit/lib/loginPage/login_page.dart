@@ -2,6 +2,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gop2/userDashboard/body.dart';
+import '../principaldash/main.dart';
 import '/newPermission/components/background.dart';
 import '/principalSide/principal_side_permission_screen.dart';
 
@@ -143,7 +144,15 @@ class LoginPage extends StatelessWidget {
                             width: double.infinity,
                             height: 45,
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        princDashBoard(), // Replace with your user dashboard screen
+                                  ),
+                                );
+                              },
                               style: ButtonStyle(
                                   elevation: MaterialStateProperty.all(0),
                                   backgroundColor: MaterialStateProperty.all(
@@ -160,7 +169,7 @@ class LoginPage extends StatelessWidget {
                                   //           'assets/images/google_logo.png')),
                                   // ),
                                   Text(
-                                    'Login With Google',
+                                    'Login as Admin',
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 19,
