@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import '../../services/event_json.dart';
 import '/services/addevent.dart';
 //import 'package:gopermit/services/allevent_json.dart';
 //import 'package:gopermit/services/event_json.dart';
@@ -27,19 +30,20 @@ const kwidth = SizedBox(
 
 class _BodyState extends State<Body> {
   void addEventFromFields(
-      TextEditingController eventNameController,
-      TextEditingController organizingSocietyController,
-      TextEditingController eventLocationController,
-      TextEditingController eventDescriptionController,
-      TextEditingController posterImageUrlController,
-      TextEditingController pointOfContactController,
-      TextEditingController pointOfContactPhoneController) {
+    TextEditingController eventNameController,
+    TextEditingController organizingSocietyController,
+    TextEditingController eventLocationController,
+    TextEditingController eventDescriptionController,
+    TextEditingController posterImageUrlController,
+    TextEditingController pointOfContactController,
+    TextEditingController pointOfContactPhoneController,
+  ) {
     String eventName = eventNameController.text;
     String organizingSociety = organizingSocietyController.text;
     String eventLocation = eventLocationController.text;
     String eventDescription = eventDescriptionController.text;
 
-    // String scheduledDate = selectedDate;
+    // DateTime? scheduledDate = DateTime.parse(scheduleDateController.text);
 
     String posterImageUrl = posterImageUrlController.text;
     String pointOfContact = pointOfContactController.text;
@@ -50,19 +54,18 @@ class _BodyState extends State<Body> {
 //         endTime: endTime,
 
 // ... retrieve values from other text controllers for remaining fields
-/*
     addEvent(Eventonperm(
         eventName: eventName,
         organizingSociety: organizingSociety,
         eventLocation: eventLocation,
         // scheduledDate: scheduledDate,
-        startTime: TimeOfDay.now(),
-        endTime: TimeOfDay.now(),
+        //startTime: TimeOfDay.now(),
+        //endTime: TimeOfDay.now(),
         eventDescription: eventDescription,
         posterImageUrl: posterImageUrl,
         pointOfContact: pointOfContact,
         pointOfContactPhone: pointOfContactPhone));
-*/
+
 // Call the addEvent function to add the event to Firestore
   }
 
@@ -78,6 +81,7 @@ class _BodyState extends State<Body> {
       TextEditingController();
   final TextEditingController pointOfContactPhoneController =
       TextEditingController();
+  final TextEditingController scheduleDateController = TextEditingController();
 
   DateTime? selectedDate;
 
@@ -91,6 +95,7 @@ class _BodyState extends State<Body> {
     if (pickedDate != null && pickedDate != selectedDate) {
       setState(() {
         selectedDate = pickedDate;
+        scheduleDateController.text = selectedDate?.toString() ?? '';
       });
     }
   }
@@ -174,6 +179,7 @@ class _BodyState extends State<Body> {
                                 icon: Icon(Icons.calendar_today),
                               ),
                             ),
+                            controller: scheduleDateController,
                           ),
                           kheight,
                           const Row(
