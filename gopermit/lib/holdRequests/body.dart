@@ -7,8 +7,8 @@ const kheight = SizedBox(
   height: 15,
 );
 
-class appReq extends StatelessWidget {
-  appReq({super.key});
+class appHold extends StatelessWidget {
+  appHold({super.key});
   final commentsController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class appReq extends StatelessWidget {
           slivers: <Widget>[
             SliverAppBar(
               title: Text(
-                'Approved Request',
+                'Requests on Hold',
                 style: TextStyle(color: Colors.white, fontSize: 28),
               ),
               leading: IconButton(

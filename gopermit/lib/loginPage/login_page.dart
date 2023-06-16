@@ -1,6 +1,7 @@
 // ignore: depend_on_referenced_packages
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gop2/landingPage/body.dart';
 import 'package:gop2/userDashboard/body.dart';
 import '../principaldash/main.dart';
 import '/newPermission/components/background.dart';
@@ -69,7 +70,8 @@ class LoginPage extends StatelessWidget {
                   color: Colors.white,
                 ),
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => HomeScreen()));
                 },
               ),
               pinned: false,
@@ -100,13 +102,22 @@ class LoginPage extends StatelessWidget {
                           ),
                           kheight,
                           kheight,
-                          TitleWithTextField(
-                              text: 'Username', controller: usernameController),
+                          TextField(
+                            controller: usernameController,
+                            decoration: InputDecoration(hintText: 'Username'),
+                          ),
+                          TextField(
+                            controller: passwordController,
+                            decoration: InputDecoration(hintText: 'Password'),
+                            obscureText: true,
+                          ),
+                          /*
                           TitleWithTextField(
                             text: 'Password',
                             controller: passwordController,
                             ispassword: true,
                           ),
+                          */
                           kheight,
                           SizedBox(
                             width: double.infinity,
