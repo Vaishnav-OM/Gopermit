@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gop2/newPermission/new_permission.dart';
+import 'package:gop2/principalSide/principal_side_permission_screen.dart';
 import 'package:gop2/scheduledEvents/body.dart';
 // import 'package:google_fonts/google_fonts.dart';
 //import 'package:flutter/src/painting/image_resolution.dart';
@@ -8,8 +9,8 @@ import 'package:gop2/scheduledEvents/body.dart';
 //   runApp(const GoPermit());
 // }
 
-class UserDashBoard extends StatelessWidget {
-  const UserDashBoard({super.key});
+class princDashBoard extends StatelessWidget {
+  const princDashBoard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +114,7 @@ class DashboardScreen extends StatelessWidget {
           ),
           const SizedBox(height: 10.0),
           const Text(
-            'Requests on Hold',
+            'Awaiting Approval',
             textAlign: TextAlign.start,
             style: TextStyle(
               color: Colors.black,
@@ -134,16 +135,17 @@ class DashboardScreen extends StatelessWidget {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => newPermission()),
-          );
-        },
-        child: const Icon(Icons.add),
-      ),
     );
+    // floatingActionButton: FloatingActionButton(
+    // onPressed: () {
+    //   Navigator.push(
+    //     context,
+    //     MaterialPageRoute(builder: (context) => newPermission()),
+    //   );
+    // },
+    //     child: const Icon(Icons.add),
+    //   ),
+    // );
     // ),
     // );
   }
@@ -342,8 +344,10 @@ class EventOnHoldCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Navigator.push(context,
-        //     MaterialPageRoute(builder: (context) => scheduledDetails()));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => PrincipalSidePermissionScreen()));
       },
       child: Container(
         width: double.infinity,

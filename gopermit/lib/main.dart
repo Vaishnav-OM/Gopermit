@@ -9,6 +9,8 @@ import 'package:gop2/loginPage/login_page.dart';
 //import 'scheduledEvents/body.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:gop2/principalSide/principal_side_permission_screen.dart';
+import 'approvedRequest/body.dart';
 import 'firebase_options.dart';
 
 void main() async {
