@@ -6,6 +6,7 @@ import 'package:gop2/userDashboard/body.dart';
 import '../principaldash/main.dart';
 import '/newPermission/components/background.dart';
 import '/principalSide/principal_side_permission_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
@@ -27,7 +28,7 @@ class LoginPage extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) =>
-                UserDashBoard(), // Replace with your user dashboard screen
+                const UserDashBoard(), // Replace with your user dashboard screen
           ),
         );
       }
@@ -49,6 +50,76 @@ class LoginPage extends StatelessWidget {
         ),
       );
     }
+  }
+
+  Future<void> loginAdmin(BuildContext context) async {
+    try {
+      final UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: usernameController.text,
+        password: passwordController.text,
+      );
+      if (userCredential.user != null) {
+        // Check if the user is an admin
+        final User user = userCredential.user!;
+        final bool isAdmin = await _checkAdminPrivileges(user.uid);
+
+        if (isAdmin) {
+          // User is an admin, navigate to the admin dashboard
+          // ignore: use_build_context_synchronously
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  const princDashBoard(), // Replace with your admin dashboard screen
+            ),
+          );
+        } else {
+          // User is not an admin, display an error message
+          // ignore: use_build_context_synchronously
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('Admin Login Error'),
+              content: const Text('You do not have admin privileges.'),
+              actions: [
+                TextButton(
+                  child: const Text('OK'),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ],
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      // Handle login error
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Admin Login Error'),
+          content: const Text('An error occurred during admin login.'),
+          actions: [
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () => Navigator.pop(context),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
+  Future<bool> _checkAdminPrivileges(String userId) async {
+    // Implement your logic to check if the user has admin privileges.
+    // This can involve querying your Firebase database or Firestore to verify the admin status of the user.
+    // Return true if the user is an admin, otherwise return false.
+    // Example implementation using Firestore:
+
+    final DocumentSnapshot adminSnapshot =
+        await FirebaseFirestore.instance.collection('admin').doc(userId).get();
+
+    return adminSnapshot.exists;
   }
 
   @override
@@ -104,11 +175,13 @@ class LoginPage extends StatelessWidget {
                           kheight,
                           TextField(
                             controller: usernameController,
-                            decoration: InputDecoration(hintText: 'Username'),
+                            decoration:
+                                const InputDecoration(hintText: 'Username'),
                           ),
                           TextField(
                             controller: passwordController,
-                            decoration: InputDecoration(hintText: 'Password'),
+                            decoration:
+                                const InputDecoration(hintText: 'Password'),
                             obscureText: true,
                           ),
                           /*
@@ -151,6 +224,7 @@ class LoginPage extends StatelessWidget {
                                 )),
                           ),
                           kheight,
+                          /*
                           SizedBox(
                             width: double.infinity,
                             height: 45,
@@ -160,7 +234,7 @@ class LoginPage extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        princDashBoard(), // Replace with your user dashboard screen
+                                        const princDashBoard(), // Replace with your user dashboard screen
                                   ),
                                 );
                               },
@@ -168,10 +242,10 @@ class LoginPage extends StatelessWidget {
                                   elevation: MaterialStateProperty.all(0),
                                   backgroundColor: MaterialStateProperty.all(
                                       const Color.fromRGBO(233, 233, 233, 1))),
-                              child: Row(
+                              child: const Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
-                                children: const [
+                                children: [
                                   // SizedBox(
                                   //   width: 38,
                                   //   height: 38,
@@ -190,6 +264,38 @@ class LoginPage extends StatelessWidget {
                                 ],
                               ),
                             ),
+                          ),
+                          */
+                          SizedBox(
+                            width: double.infinity,
+                            height: 45,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                loginAdmin(context);
+                              },
+                              style: ButtonStyle(
+                                elevation: MaterialStateProperty.all(0),
+                                backgroundColor: MaterialStateProperty.all(
+                                    const Color.fromRGBO(233, 233, 233, 1)),
+                              ),
+                              child: const Text(
+                                'Login as Admin',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ),
+                          kheight,
+                          const Center(
+                            child: Text('-OR-',
+                                style: TextStyle(
+                                  color: Color.fromARGB(46, 0, 0, 0),
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
+                                )),
                           ),
                         ],
                       ),
@@ -255,6 +361,7 @@ class TitleWithTextField extends StatelessWidget {
                             passVisibleNotifier.value =
                                 !passVisibleNotifier.value;
 
+                            // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
                             passVisibleNotifier.notifyListeners();
                           },
                         )

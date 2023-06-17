@@ -8,9 +8,10 @@ import 'package:gop2/loginPage/login_page.dart';
 //import 'userDashboard/body.dart';
 //import 'scheduledEvents/body.dart';
 import 'package:firebase_core/firebase_core.dart';
+// ignore: depend_on_referenced_packages
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:gop2/principalSide/principal_side_permission_screen.dart';
-import 'approvedRequest/body.dart';
+//import 'package:gop2/principalSide/principal_side_permission_screen.dart';
+//import 'approvedRequest/body.dart';
 import 'firebase_options.dart';
 import 'newPermission/new_permission.dart';
 
