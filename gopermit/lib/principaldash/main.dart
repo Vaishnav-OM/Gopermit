@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gop2/holdRequests/body.dart';
-import 'package:gop2/landingPage/body.dart';
 import 'package:gop2/loginPage/login_page.dart';
-//import 'package:gop2/newPermission/new_permission.dart';
 import 'package:gop2/principalSide/principal_side_permission_screen.dart';
-//import 'package:gop2/scheduledEvents/body.dart';
-// import 'package:google_fonts/google_fonts.dart';
-//import 'package:flutter/src/painting/image_resolution.dart';
 import '../services/allevent_json.dart';
 import '../services/event_json.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -54,20 +49,6 @@ class princDashBoard extends StatefulWidget {
 
 class _princDashBoardState extends State<princDashBoard> {
   List<Eventonperm> events = [];
-
-  @override
-  void initState() {
-    super.initState();
-    fetchEvents();
-  }
-
-  Future<void> fetchEvents() async {
-    List<Eventonperm> fetchedEvents = await getAllEvents();
-    setState(() {
-      events = fetchedEvents;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
@@ -442,20 +423,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 }
 
-class EventOnHoldCard extends StatelessWidget {
+class EventCard extends StatelessWidget {
   final Eventonperm event;
-  const EventOnHoldCard({super.key, required this.event});
-
-  get decoration => null;
+  const EventCard({super.key, required this.event});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => PrincipalSidePermissionScreen()));
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  PrincipalSidePermissionScreen(eventId: event.id)),
+        );
       },
       child: Container(
         width: double.infinity,
@@ -464,102 +445,87 @@ class EventOnHoldCard extends StatelessWidget {
           color: const Color.fromARGB(255, 228, 226, 226),
           borderRadius: BorderRadius.circular(10.0),
         ),
-        child: Row(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            //Container(
-            // height: 100.0,
-            //width: 100.0,
-            //color: Colors.grey[300],
-            //margin: const EdgeInsets.all(8.0),
-            //),
-            const Expanded(
-              child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'AMA Session with Devikaa D',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16.0,
-                      ),
-                    ),
-                    SizedBox(height: 4.0),
-                    Text(
-                      'TinkerHub',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 12.0,
-                      ),
-                    ),
-                    SizedBox(height: 4.0),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.calendar_today,
-                          size: 14.0,
-                          color: Colors.black,
-                        ),
-                        SizedBox(width: 4.0),
-                        Text(
-                          '24th January 2023',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 12.0,
-                          ),
-                        ),
-                        SizedBox(width: 8.0),
-                        Icon(
-                          Icons.access_time,
-                          size: 14.0,
-                          color: Colors.black,
-                        ),
-                        SizedBox(width: 4.0),
-                        Text(
-                          '4pm - 5pm',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 12.0,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 4.0),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.location_on,
-                          size: 14.0,
-                          color: Colors.black,
-                        ),
-                        SizedBox(width: 4.0),
-                        Text(
-                          'Room No 312',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 12.0,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+            ClipRRect(
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(10.0),
               ),
+              /*
+              child: Image.asset(
+                'assets/images/eventcard.jpg',
+                height: 150.0,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
+              */
             ),
-            Container(
-              // ignore: sort_child_properties_last
-              // ignore: prefer_const_constructors
-
-              height: 50,
-              width: 50,
-              margin: const EdgeInsets.all(16.0),
-              // child: Image.asset('assets/images/bg_design'),
-              //fit: BoxFit.cover,
-              //height: 40,
-              //width: 40,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    event.eventName,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16.0,
+                    ),
+                  ),
+                  const SizedBox(height: 4.0),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.calendar_today,
+                        size: 14.0,
+                        color: Colors.grey[600],
+                      ),
+                      const SizedBox(width: 4.0),
+                      Text(
+                        'Event Date',
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 12.0,
+                        ),
+                      ),
+                      const SizedBox(width: 8.0),
+                      Icon(
+                        Icons.access_time,
+                        size: 14.0,
+                        color: Colors.grey[600],
+                      ),
+                      const SizedBox(width: 4.0),
+                      Text(
+                        'Event Time',
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 12.0,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 4.0),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.location_on,
+                        size: 14.0,
+                        color: Colors.grey[600],
+                      ),
+                      const SizedBox(width: 4.0),
+                      Text(
+                        event.eventLocation,
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 11.0,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ],
         ),

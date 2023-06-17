@@ -1,106 +1,172 @@
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
+//import '../newPermission/components/body.dart';
 import '/newPermission/components/background.dart';
+import '../services/event_json.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 const kheight = SizedBox(
   height: 15,
 );
 
 class PrincipalSidePermissionScreen extends StatelessWidget {
-  PrincipalSidePermissionScreen({super.key});
+  final String eventId;
+  PrincipalSidePermissionScreen({super.key, required this.eventId});
   final commentsController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Stack(
-      children: [
-        const background(),
-        CustomScrollView(
-          slivers: <Widget>[
-            SliverAppBar(
-              title: Text(
-                'Nirmana',
-                style: TextStyle(color: Colors.white, fontSize: 28),
-              ),
-              leading: IconButton(
-                  icon: Icon(Icons.arrow_back),
-                  color: Colors.white,
-                  onPressed: () {
-                    Navigator.pop(context);
-                  }),
-              pinned: false,
-              snap: false,
-              floating: false,
-              backgroundColor: Colors.transparent,
-              centerTitle: true,
-            ),
-            SliverList(
-              delegate: SliverChildListDelegate.fixed([
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(18.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const TitleWithDetailWidget(
-                              title: 'Event Name', details: 'Nirmana'),
-                          const TitleWithDetailWidget(
-                              title: 'Organizing Society', details: 'IEEE'),
-                          const TitleWithDetailWidget(
-                              title: 'Event Location/ Utility Centre - I',
-                              details: 'Seminar Hall'),
-                          const TitleWithDetailWidget(
-                              title: 'Date', details: '21st March 2023'),
-                          Row(
-                            children: const [
-                              TitleWithDetailWidget(
-                                  title: 'Starting Time', details: '4:00 PM'),
-                              SizedBox(
-                                width: 15,
-                              ),
-                              TitleWithDetailWidget(
-                                  title: 'Ending Time', details: '6:00 PM'),
-                            ],
-                          ),
-                          const TitleWithDetailWidget(
-                              title: 'Event Description',
-                              details:
-                                  '''Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent facilisis in nulla non tincidunt. Sed ac justo in odio blandit interdum. Suspendisse vel cursus nisi, eget interdum arcu. Curabitur rutrum magna laoreet, luctus diam ut, suscipit nibh. Mauris venenatis tincidunt libero, vel fringilla mauris. Duis feugiat placerat dui a convallis. Suspendisse enim purus, condimentum nec ante id, fringilla tempus mauris. Fusce posuere placerat lectus, vitae tempor libero euismod sit amet. In facilisis luctus est in pretium. Quisque mollis velit sodales augue suscipit, at varius sem sagittis. Praesent laoreet consectetur blandit.'''),
-                          const TitleWithDetailWidget(
-                              title: 'Point of Contact',
-                              details: 'George Mammen Kurien - S8 C'),
-                          _CommentsSection(
-                            controller: commentsController,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              DecisionButtonWidget(
-                                buttonText: 'APPROVE',
-                                onPressed: () {},
-                              ),
-                              DecisionButtonWidget(
-                                buttonText: 'REJECT',
-                                onPressed: () {},
-                              ),
-                            ],
-                          )
-                        ],
+    return FutureBuilder<Eventonperm>(
+        future: fetchEventDetails(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            Eventonperm event = snapshot.data!;
+            return Scaffold(
+                body: Stack(
+              children: [
+                const background(),
+                CustomScrollView(
+                  slivers: <Widget>[
+                    SliverAppBar(
+                      title: Text(
+                        event.eventName,
+                        style: TextStyle(color: Colors.white, fontSize: 28),
                       ),
+                      leading: IconButton(
+                        icon: const Icon(
+                          Icons.arrow_back,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                      pinned: false,
+                      snap: false,
+                      floating: false,
+                      backgroundColor: Colors.transparent,
+                      centerTitle: true,
                     ),
-                  ),
-                )
-              ]),
-            ),
-          ],
-        ),
-      ],
-    ));
+                    SliverList(
+                      delegate: SliverChildListDelegate.fixed([
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(18.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  TitleWithDetailWidget(
+                                      title: 'Event Name',
+                                      details: event.eventName),
+                                  TitleWithDetailWidget(
+                                      title: 'Organizing Society',
+                                      details: event.organizingSociety),
+                                  TitleWithDetailWidget(
+                                      title:
+                                          'Event Location/ Utility Centre - I',
+                                      details: event.eventLocation),
+
+                                  ///implement following using DateTime
+                                  const TitleWithDetailWidget(
+                                      title: 'Date',
+                                      details: "18th September 2023"),
+                                  const Row(
+                                    children: [
+                                      TitleWithDetailWidget(
+                                          title: 'Starting Time',
+                                          details: "4:00 PM"),
+                                      SizedBox(
+                                        width: 15,
+                                      ),
+                                      TitleWithDetailWidget(
+                                          title: 'Ending Time',
+                                          details: "6:00 PM"),
+                                    ],
+                                  ),
+                                  TitleWithDetailWidget(
+                                      title: 'Event Description',
+                                      details: event.eventDescription),
+                                  TitleWithDetailWidget(
+                                      title: 'Point of Contact',
+                                      details: event.pointOfContact),
+                                  _CommentsSection(
+                                    controller: commentsController,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      DecisionButtonWidget(
+                                        buttonText: 'APPROVE',
+                                        onPressed: () {},
+                                      ),
+                                      DecisionButtonWidget(
+                                        buttonText: 'REJECT',
+                                        onPressed: () {},
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        )
+                      ]),
+                    ),
+                  ],
+                ),
+              ],
+            ));
+          } else if (snapshot.hasError) {
+            return Text('Error: ${snapshot.error}');
+          } else {
+            return CircularProgressIndicator.adaptive();
+          }
+        });
+  }
+
+  Future<Eventonperm> fetchEventDetails() async {
+    try {
+      DocumentSnapshot events = await FirebaseFirestore.instance
+          .collection('events')
+          .doc(eventId)
+          .get();
+
+      Eventonperm eventssnap = Eventonperm(
+        id: events.id,
+        eventName: events['eventName'],
+        organizingSociety: events['organizingSociety'],
+        eventLocation: events['eventLocation'],
+        // scheduledDate: events['scheduledDate'].toDate(),
+        // startTime: TimeOfDay.fromDateTime(doc['startTime'].toDate()),
+        // endTime: TimeOfDay.fromDateTime(doc['endTime'].toDate()),
+        eventDescription: events['eventDescription'],
+        posterImageUrl: events['posterImageUrl'],
+        pointOfContact: events['pointOfContact'],
+        pointOfContactPhone: events['pointOfContactPhone'],
+        comment: events['comment'],
+        isApproved: events['isApproved'],
+      );
+      return eventssnap;
+    } catch (e) {
+      // Handle any errors that occur
+      print(e);
+      return Eventonperm(
+        id: '',
+        eventName: '',
+        eventDescription: '',
+        eventLocation: '',
+        organizingSociety: '',
+        pointOfContact: '',
+        pointOfContactPhone: '',
+        posterImageUrl: '',
+        // scheduledDate: DateTime.now(),
+      ); // Return an empty event or handle the error case
+    }
   }
 }
 
