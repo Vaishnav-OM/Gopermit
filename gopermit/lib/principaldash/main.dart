@@ -8,6 +8,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gop2/approvedRequest/body.dart';
 import 'package:gop2/rejectedRequest/body.dart';
 
+import '../services/updateeventsts.dart';
+
 Future<List<Eventonperm>> getAllEvents() async {
   try {
     QuerySnapshot eventsSnapshot =
@@ -37,6 +39,11 @@ Future<List<Eventonperm>> getAllEvents() async {
   } catch (e) {
     return [];
   }
+}
+
+Future<int> getTotalRequests() async {
+  final snapshot = await FirebaseFirestore.instance.collection('events').get();
+  return snapshot.size;
 }
 
 // ignore: camel_case_types
@@ -84,125 +91,139 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-        elevation: 0,
-        toolbarHeight: 50,
-        // flexibleSpace: Container(
-        //   decoration: BoxDecoration(
-        //     image: DecorationImage(
-        //       image: "assets/images/bg_design.png"
-        //       fit: BoxFit.cover,
-        //     ),
-
-        //   ),
-        // ),
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-          ),
-          onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => LoginPage()));
-          },
-        ),
-        title: const Text(
-          'Dashboard',
-          style: TextStyle(
-              fontSize: 20, fontFamily: 'Poppins', fontWeight: FontWeight.w900),
-        ),
-      ),
-      body:
-          // child: Container(
-          //   decoration: const BoxDecoration(
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+          elevation: 0,
+          toolbarHeight: 50,
+          // flexibleSpace: Container(
+          //   decoration: BoxDecoration(
           //     image: DecorationImage(
-          //       image: AssetImage('assets/bg_design'),
+          //       image: "assets/images/bg_design.png"
           //       fit: BoxFit.cover,
           //     ),
+
           //   ),
-          Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildMetricBlock(
-                      title: 'Total Requests Initiated',
-                      value: '10',
-                    ),
-                    const SizedBox(
-                      height: 8.0,
-                      width: 8.0,
-                    ),
-                    _buildMetricBlock1(
-                      title: 'Requests Approved',
-                      value: '6',
-                    ),
-                    const SizedBox(
-                      height: 8.0,
-                      width: 8.0,
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    _buildMetricBlock2(
-                      title: 'Requests Rejected',
-                      value: '2',
-                    ),
-                    const SizedBox(
-                      height: 8.0,
-                      width: 8.0,
-                    ),
-                    _buildMetricBlock3(
-                      title: 'Requests on Hold',
-                      value: '2',
-                    ),
-                    const SizedBox(
-                      height: 8.0,
-                      width: 8.0,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 10.0),
-          const Text(
-            'Awaiting Approval',
-            textAlign: TextAlign.start,
-            style: TextStyle(
+          // ),
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back,
               color: Colors.black,
-              fontSize: 20.0,
-              fontWeight: FontWeight.w700,
-              fontFamily: 'Poppins',
             ),
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => LoginPage()));
+            },
           ),
-          const SizedBox(height: 8.0),
-          Expanded(
-            child: ListView.builder(
-              scrollDirection: Axis.vertical,
-              itemCount: events.length,
-              itemBuilder: (context, index) {
-                Eventonperm event = events[index];
-                return EventCard(event: event);
-              },
-            ),
+          title: const Text(
+            'Dashboard',
+            style: TextStyle(
+                fontSize: 20,
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w900),
           ),
-        ],
-      ),
-    );
+        ),
+        body:
+            // child: Container(
+            //   decoration: const BoxDecoration(
+            //     image: DecorationImage(
+            //       image: AssetImage('assets/bg_design'),
+            //       fit: BoxFit.cover,
+            //     ),
+            //   ),
+            FutureBuilder<int>(
+                future: getTotalRequests(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    final totalRequests = snapshot.data;
+
+                    return Column(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  _buildMetricBlock(
+                                    title: 'Total Requests Initiated',
+                                    value: totalRequests.toString(),
+                                  ),
+                                  const SizedBox(
+                                    height: 8.0,
+                                    width: 8.0,
+                                  ),
+                                  _buildMetricBlock1(
+                                    title: 'Requests Approved',
+                                    value: '6',
+                                  ),
+                                  const SizedBox(
+                                    height: 8.0,
+                                    width: 8.0,
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  _buildMetricBlock2(
+                                    title: 'Requests Rejected',
+                                    value: '2',
+                                  ),
+                                  const SizedBox(
+                                    height: 8.0,
+                                    width: 8.0,
+                                  ),
+                                  _buildMetricBlock3(
+                                    title: 'Requests on Hold',
+                                    value: '2',
+                                  ),
+                                  const SizedBox(
+                                    height: 8.0,
+                                    width: 8.0,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 10.0),
+                        const Text(
+                          'Awaiting Approval',
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: 'Poppins',
+                          ),
+                        ),
+                        const SizedBox(height: 8.0),
+                        Expanded(
+                          child: ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            itemCount: events.length,
+                            itemBuilder: (context, index) {
+                              Eventonperm event = events[index];
+                              return EventCard(event: event);
+                            },
+                          ),
+                        ),
+                      ],
+                    );
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else {
+                    return CircularProgressIndicator.adaptive();
+                  }
+                }));
+
     // floatingActionButton: FloatingActionButton(
     // onPressed: () {
     //   Navigator.push(
@@ -434,8 +455,10 @@ class EventCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) =>
-                  PrincipalSidePermissionScreen(eventId: event.id)),
+              builder: (context) => PrincipalSidePermissionScreen(
+                    eventId: event.id,
+                    isApproved: event.isApproved,
+                  )),
         );
       },
       child: Container(
