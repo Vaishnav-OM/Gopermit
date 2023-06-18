@@ -24,13 +24,27 @@ class LoginPage extends StatelessWidget {
       if (userCredential.user != null) {
         // User is authenticated, navigate to the user dashboard
         // ignore: use_build_context_synchronously
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) =>
-                const UserDashBoard(), // Replace with your user dashboard screen
-          ),
-        );
+        final User user = userCredential.user!;
+        final bool isAdmin = await _checkAdminPrivileges(user.uid);
+        if (isAdmin) {
+          // ignore: use_build_context_synchronously
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  const princDashBoard(), // Replace with your user dashboard screen
+            ),
+          );
+        } else {
+          // ignore: use_build_context_synchronously
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  const UserDashBoard(), // Replace with your user dashboard screen
+            ),
+          );
+        }
       }
     } catch (e) {
       // Handle login error
@@ -52,6 +66,7 @@ class LoginPage extends StatelessWidget {
     }
   }
 
+  /*
   Future<void> loginAdmin(BuildContext context) async {
     try {
       final UserCredential userCredential =
@@ -109,7 +124,7 @@ class LoginPage extends StatelessWidget {
       );
     }
   }
-
+  */
   Future<bool> _checkAdminPrivileges(String userId) async {
     // Implement your logic to check if the user has admin privileges.
     // This can involve querying your Firebase database or Firestore to verify the admin status of the user.
@@ -214,6 +229,7 @@ class LoginPage extends StatelessWidget {
                               ),
                             ),
                           ),
+                          /*
                           kheight,
                           const Center(
                             child: Text('-OR-',
@@ -224,7 +240,7 @@ class LoginPage extends StatelessWidget {
                                 )),
                           ),
                           kheight,
-                          /*
+                        
                           SizedBox(
                             width: double.infinity,
                             height: 45,
@@ -265,7 +281,7 @@ class LoginPage extends StatelessWidget {
                               ),
                             ),
                           ),
-                          */
+                          
                           SizedBox(
                             width: double.infinity,
                             height: 45,
@@ -288,15 +304,7 @@ class LoginPage extends StatelessWidget {
                               ),
                             ),
                           ),
-                          kheight,
-                          const Center(
-                            child: Text('-OR-',
-                                style: TextStyle(
-                                  color: Color.fromARGB(46, 0, 0, 0),
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500,
-                                )),
-                          ),
+                          */
                         ],
                       ),
                     ),
