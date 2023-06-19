@@ -19,10 +19,10 @@ class background extends StatelessWidget {
               height: size.height * 0.60,
               width: double.infinity,
               color: Colors.black,
-              // child: Image.asset(
-              //   "assets/images/bg_design.png",
-              //   fit: BoxFit.fill,
-              // ),
+              child: Image.asset(
+                "assets/images/bg_design.png",
+                fit: BoxFit.fill,
+              ),
             ),
             Container(
               height: size.height * 0.40,

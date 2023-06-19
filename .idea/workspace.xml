@@ -5,21 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ccbce7f1-714d-469c-9a4c-01afc6552396" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/gopermit/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/gopermit/android/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gopermit/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gopermit/android/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gopermit/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/gopermit/android/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gopermit/lib/eventdetails/body.dart" beforeDir="false" afterPath="$PROJECT_DIR$/gopermit/lib/eventdetails/body.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gopermit/lib/loginPage/login_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/gopermit/lib/loginPage/login_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gopermit/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/gopermit/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gopermit/lib/landingPage/body.dart" beforeDir="false" afterPath="$PROJECT_DIR$/gopermit/lib/landingPage/body.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gopermit/lib/newPermission/components/background.dart" beforeDir="false" afterPath="$PROJECT_DIR$/gopermit/lib/newPermission/components/background.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gopermit/lib/newPermission/components/body.dart" beforeDir="false" afterPath="$PROJECT_DIR$/gopermit/lib/newPermission/components/body.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gopermit/linux/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/gopermit/linux/flutter/generated_plugin_registrant.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gopermit/linux/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/gopermit/linux/flutter/generated_plugins.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gopermit/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/gopermit/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gopermit/lib/principalSide/principal_side_permission_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/gopermit/lib/principalSide/principal_side_permission_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gopermit/lib/principaldash/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/gopermit/lib/principaldash/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gopermit/lib/scheduledEvents/body.dart" beforeDir="false" afterPath="$PROJECT_DIR$/gopermit/lib/scheduledEvents/body.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gopermit/lib/services/addevent.dart" beforeDir="false" afterPath="$PROJECT_DIR$/gopermit/lib/services/addevent.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gopermit/lib/services/event_json.dart" beforeDir="false" afterPath="$PROJECT_DIR$/gopermit/lib/services/event_json.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gopermit/lib/services/updateevent.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gopermit/lib/services/updateeventsts.dart" beforeDir="false" afterPath="$PROJECT_DIR$/gopermit/lib/services/updateeventsts.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gopermit/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/gopermit/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gopermit/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/gopermit/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gopermit/test/widget_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/gopermit/test/widget_test.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gopermit/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/gopermit/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gopermit/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/gopermit/windows/flutter/generated_plugins.cmake" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +35,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="dart.analysis.tool.window.visible" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Motiv8" />
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
@@ -52,5 +49,11 @@
       <updated>1686819378218</updated>
     </task>
     <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="549" y="163" key="FileChooserDialogImpl" timestamp="1687200344955">
+      <screen x="0" y="0" width="1536" height="816" />
+    </state>
+    <state x="549" y="163" key="FileChooserDialogImpl/0.0.1536.816@0.0.1536.816" timestamp="1687200344955" />
   </component>
 </project>
