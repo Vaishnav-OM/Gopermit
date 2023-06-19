@@ -13,14 +13,14 @@ class Eventonperm {
   String pointOfContact;
   String pointOfContactPhone;
   String comment;
-  bool isApproved;
+  int isApproved;
 
   Eventonperm({
     this.id = '',
     required this.eventName,
     required this.organizingSociety,
     required this.eventLocation,
-    // required this.scheduledDate,
+    required this.scheduledDate,
     // required this.startTime,
     // required this.endTime,
     required this.eventDescription,
@@ -28,6 +28,6 @@ class Eventonperm {
     required this.pointOfContact,
     required this.pointOfContactPhone,
     this.comment = '',
-    this.isApproved = false,
+    this.isApproved = 0,
   });
 }

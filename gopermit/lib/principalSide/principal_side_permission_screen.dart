@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 //import '../newPermission/components/body.dart';
+import '../services/updateeventsts.dart';
 import '/newPermission/components/background.dart';
 import '../services/event_json.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -11,7 +12,13 @@ const kheight = SizedBox(
 
 class PrincipalSidePermissionScreen extends StatelessWidget {
   final String eventId;
-  PrincipalSidePermissionScreen({super.key, required this.eventId});
+  final int isApproved;
+
+  PrincipalSidePermissionScreen({
+    super.key,
+    required this.eventId,
+    required this.isApproved,
+  });
   final commentsController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -102,11 +109,21 @@ class PrincipalSidePermissionScreen extends StatelessWidget {
                                     children: [
                                       DecisionButtonWidget(
                                         buttonText: 'APPROVE',
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          updateEventApprovalStatus(
+                                            eventId,
+                                            1,
+                                          );
+                                        },
                                       ),
                                       DecisionButtonWidget(
                                         buttonText: 'REJECT',
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          updateEventApprovalStatus(
+                                            eventId,
+                                            -1,
+                                          );
+                                        },
                                       ),
                                     ],
                                   )
@@ -141,7 +158,7 @@ class PrincipalSidePermissionScreen extends StatelessWidget {
         eventName: events['eventName'],
         organizingSociety: events['organizingSociety'],
         eventLocation: events['eventLocation'],
-        // scheduledDate: events['scheduledDate'].toDate(),
+        scheduledDate: (events['scheduledDate'] as Timestamp).toDate(),
         // startTime: TimeOfDay.fromDateTime(doc['startTime'].toDate()),
         // endTime: TimeOfDay.fromDateTime(doc['endTime'].toDate()),
         eventDescription: events['eventDescription'],
@@ -164,7 +181,7 @@ class PrincipalSidePermissionScreen extends StatelessWidget {
         pointOfContact: '',
         pointOfContactPhone: '',
         posterImageUrl: '',
-        // scheduledDate: DateTime.now(),
+        scheduledDate: DateTime.now(),
       ); // Return an empty event or handle the error case
     }
   }
