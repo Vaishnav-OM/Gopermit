@@ -5,7 +5,7 @@ class Eventonperm {
   String eventName;
   String organizingSociety;
   String eventLocation;
-  DateTime? scheduledDate;
+  //DateTime? scheduledDate;
   // String startTime;
   // String endTime;
   String eventDescription;
@@ -14,13 +14,14 @@ class Eventonperm {
   String pointOfContactPhone;
   String comment;
   int isApproved;
+  String uid;
 
   Eventonperm({
     this.id = '',
     required this.eventName,
     required this.organizingSociety,
     required this.eventLocation,
-    required this.scheduledDate,
+    //required this.scheduledDate,
     // required this.startTime,
     // required this.endTime,
     required this.eventDescription,
@@ -29,5 +30,6 @@ class Eventonperm {
     required this.pointOfContactPhone,
     this.comment = '',
     this.isApproved = 0,
+    required this.uid,
   });
 }

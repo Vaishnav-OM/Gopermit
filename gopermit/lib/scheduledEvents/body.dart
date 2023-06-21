@@ -11,6 +11,7 @@ class scheduledDetails extends StatelessWidget {
   final String eventId;
 
   scheduledDetails({required this.eventId});
+  final commentsController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Eventonperm>(
@@ -31,7 +32,7 @@ class scheduledDetails extends StatelessWidget {
                   SliverAppBar(
                     title: Text(
                       event.eventName,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         // fontFamily: "Poppins-Medium",
                         fontSize: 20,
@@ -79,7 +80,7 @@ class scheduledDetails extends StatelessWidget {
                                   // Image.asset(
                                   //   'assets/images/eventdet.jpg',
                                   // ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10.0,
                                   ),
 
@@ -188,24 +189,24 @@ class scheduledDetails extends StatelessWidget {
           .get();
 
       Eventonperm eventssnap = Eventonperm(
-        id: events.id,
-        eventName: events['eventName'],
-        organizingSociety: events['organizingSociety'],
-        eventLocation: events['eventLocation'],
-        scheduledDate: (events['scheduledDate'] as Timestamp).toDate(),
-        // startTime: TimeOfDay.fromDateTime(doc['startTime'].toDate()),
-        // endTime: TimeOfDay.fromDateTime(doc['endTime'].toDate()),
-        eventDescription: events['eventDescription'],
-        posterImageUrl: events['posterImageUrl'],
-        pointOfContact: events['pointOfContact'],
-        pointOfContactPhone: events['pointOfContactPhone'],
-        comment: events['comment'],
-        isApproved: events['isApproved'],
-      );
+          id: events.id,
+          eventName: events['eventName'],
+          organizingSociety: events['organizingSociety'],
+          eventLocation: events['eventLocation'],
+          // scheduledDate: events['scheduledDate'].toDate(),
+          // startTime: TimeOfDay.fromDateTime(doc['startTime'].toDate()),
+          // endTime: TimeOfDay.fromDateTime(doc['endTime'].toDate()),
+          eventDescription: events['eventDescription'],
+          posterImageUrl: events['posterImageUrl'],
+          pointOfContact: events['pointOfContact'],
+          pointOfContactPhone: events['pointOfContactPhone'],
+          comment: events['comment'],
+          isApproved: events['isApproved'],
+          uid: events['uid']);
       return eventssnap;
     } catch (e) {
       // Handle any errors that occur
-      print(e);
+      //print(e);
       return Eventonperm(
         id: '',
         eventName: '',
@@ -215,7 +216,8 @@ class scheduledDetails extends StatelessWidget {
         pointOfContact: '',
         pointOfContactPhone: '',
         posterImageUrl: '',
-        scheduledDate: DateTime.now(),
+        //scheduledDate: DateTime.now(),
+        uid: "",
       ); // Return an empty event or handle the error case
     }
   }
