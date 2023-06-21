@@ -6,8 +6,8 @@ class Eventonperm {
   String organizingSociety;
   String eventLocation;
   DateTime? scheduledDate;
-  // String startTime;
-  // String endTime;
+  String startTime;
+  String endTime;
   String eventDescription;
   String posterImageUrl;
   String pointOfContact;
@@ -22,8 +22,8 @@ class Eventonperm {
     required this.organizingSociety,
     required this.eventLocation,
     required this.scheduledDate,
-    // required this.startTime,
-    // required this.endTime,
+    required this.startTime,
+    required this.endTime,
     required this.eventDescription,
     required this.posterImageUrl,
     required this.pointOfContact,

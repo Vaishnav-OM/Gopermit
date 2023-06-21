@@ -1,6 +1,4 @@
 import 'dart:io';
-import 'dart:math';
-
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -44,7 +42,9 @@ class _BodyState extends State<Body> {
     TextEditingController pointOfContactController,
     TextEditingController pointOfContactPhoneController,
     DateTime? scheduledDate,
-    String imageUrl,
+    String selectedstartTime,
+    String selectedendTime,
+    // String imageUrl,
   ) async {
     String eventName = eventNameController.text;
     String organizingSociety = organizingSocietyController.text;
@@ -54,7 +54,9 @@ class _BodyState extends State<Body> {
     String pointOfContact = pointOfContactController.text;
     String pointOfContactPhone = pointOfContactPhoneController.text;
     DateTime scheduledEventDate = scheduledDate!.toLocal();
-    _imageUrl = (await uploadImageToFirebaseStorage(_imageFile.path))!;
+    String startTime = selectedstartTime;
+    String endTime = selectedendTime;
+    // _imageUrl = (await uploadImageToFirebaseStorage(_imageFile.path))!;
 
 //DateTime scheduledDate =
 // startTime: startTime,
@@ -66,10 +68,10 @@ class _BodyState extends State<Body> {
         organizingSociety: organizingSociety,
         eventLocation: eventLocation,
         scheduledDate: scheduledEventDate,
-        //startTime: TimeOfDay.now(),
-        //endTime: TimeOfDay.now(),
+        startTime: startTime,
+        endTime: endTime,
         eventDescription: eventDescription,
-        posterImageUrl: imageUrl,
+        posterImageUrl: '',
         pointOfContact: pointOfContact,
         pointOfContactPhone: pointOfContactPhone,
         uid: ''));
@@ -90,7 +92,8 @@ class _BodyState extends State<Body> {
   final TextEditingController pointOfContactPhoneController =
       TextEditingController();
   final TextEditingController _eventDateController = TextEditingController();
-
+  late String selectedstartTime;
+  late String selectedendTime;
   DateTime? selectedDate;
 
   Future<void> _selectEventDate(BuildContext context) async {
@@ -111,30 +114,42 @@ class _BodyState extends State<Body> {
     }
   }
 
-  Future<void> _selectTime(BuildContext context) async {
+  Future<void> _selectstartTime(BuildContext context) async {
     final TimeOfDay? picked = await showTimePicker(
       context: context,
       initialTime: TimeOfDay.now(),
     );
     if (picked != null) {
       setState(() {
-        // selectedTime = picked;
+        selectedstartTime = picked.format(context);
+      });
+    }
+  }
+
+  Future<void> _selectendTime(BuildContext context) async {
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+    if (picked != null) {
+      setState(() {
+        selectedendTime = picked.format(context);
       });
     }
   }
 
 //image picker
-  late File _imageFile;
-  late String _imageUrl;
-  Future<void> _pickImageFromGallery() async {
-    final pickedImage =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (pickedImage != null) {
-      setState(() {
-        _imageFile = File(pickedImage.path);
-      });
-    }
-  }
+  // late File _imageFile;
+  // late String _imageUrl;
+  // Future<void> _pickImageFromGallery() async {
+  //   final pickedImage =
+  //       await ImagePicker().pickImage(source: ImageSource.gallery);
+  //   if (pickedImage != null) {
+  //     setState(() {
+  //       _imageFile = File(pickedImage.path);
+  //     });
+  //   }
+  // }
 
   Future<String?> uploadImageToFirebaseStorage(String imagePath) async {
     try {
@@ -223,10 +238,10 @@ class _BodyState extends State<Body> {
                             ),
                           ),
                           kheight,
-                          const Row(
+                          Row(
                             children: [
                               TitleWithDetailWidget(title: "Start Time"),
-                              kwidth,
+                              const SizedBox(width: 25),
                               TitleWithDetailWidget(title: "End Time")
                             ],
                           ),
@@ -234,14 +249,14 @@ class _BodyState extends State<Body> {
                             children: [
                               ElevatedButton(
                                 onPressed: () {
-                                  _selectTime(context);
+                                  _selectstartTime(context);
                                 },
                                 child: Text('Select Start Time'),
                               ),
                               const SizedBox(width: 25),
                               ElevatedButton(
                                 onPressed: () {
-                                  _selectTime(context);
+                                  _selectendTime(context);
                                 },
                                 child: Text('Select End Time'),
                               ),
@@ -277,7 +292,7 @@ class _BodyState extends State<Body> {
                           const TitleWithDetailWidget(title: "Event Poster"),
                           ElevatedButton(
                             onPressed: () async {
-                              _pickImageFromGallery();
+                              // _pickImageFromGallery();
                             },
                             child: const Text('Upload Image'),
                           ),
@@ -295,15 +310,18 @@ class _BodyState extends State<Body> {
                                       Color.fromARGB(255, 209, 209, 209)),
                               onPressed: () {
                                 addEventFromFields(
-                                    eventNameController,
-                                    organizingSocietyController,
-                                    eventLocationController,
-                                    eventDescriptionController,
-                                    posterImageUrlController,
-                                    pointOfContactController,
-                                    pointOfContactPhoneController,
-                                    selectedDate,
-                                    imageUrl);
+                                  eventNameController,
+                                  organizingSocietyController,
+                                  eventLocationController,
+                                  eventDescriptionController,
+                                  posterImageUrlController,
+                                  pointOfContactController,
+                                  pointOfContactPhoneController,
+                                  selectedDate,
+                                  selectedendTime,
+                                  selectedstartTime,
+                                  // imageUrl
+                                );
                               },
                               child: Text(
                                 "Submit",

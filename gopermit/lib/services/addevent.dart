@@ -9,8 +9,8 @@ Future<void> addEvent(Eventonperm event) async {
     'organizingSociety': event.organizingSociety,
     'eventLocation': event.eventLocation,
     'scheduledDate': event.scheduledDate,
-    // 'startTime': event.startTime,
-    // 'endTime': event.endTime,
+    'startTime': event.startTime,
+    'endTime': event.endTime,
     'eventDescription': event.eventDescription,
     'posterImageUrl': event.posterImageUrl,
     'pointOfContact': event.pointOfContact,
@@ -21,6 +21,7 @@ Future<void> addEvent(Eventonperm event) async {
   });
   event.id = newEventDocRef.id;
   print(event.posterImageUrl);
-  // ignore: avoid_print
+  print(event.startTime);
+  print(event.endTime);
   print(event.id);
 }

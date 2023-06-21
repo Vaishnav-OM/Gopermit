@@ -37,8 +37,8 @@ Future<List<Eventonperm>> getAllEvents() async {
           organizingSociety: doc['organizingSociety'],
           eventLocation: doc['eventLocation'],
           scheduledDate: doc['scheduledDate'].toDate(),
-          // startTime: TimeOfDay.fromDateTime(doc['startTime'].toDate()),
-          // endTime: TimeOfDay.fromDateTime(doc['endTime'].toDate()),
+          startTime: doc['startTime'],
+          endTime: doc['endTime'],
           eventDescription: doc['eventDescription'],
           posterImageUrl: doc['posterImageUrl'],
           pointOfContact: doc['pointOfContact'],
@@ -207,6 +207,8 @@ class EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var st = event.startTime;
+    var et = event.endTime;
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -229,7 +231,7 @@ class EventCard extends StatelessWidget {
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(10.0),
               ),
-              child: Image.network(
+              child: Image.asset(
                 'assets/images/eventcard.jpg',
                 height: 150.0,
                 width: double.infinity,
@@ -273,7 +275,7 @@ class EventCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 4.0),
                       Text(
-                        'Event Time',
+                        '$st' '-' '$et',
                         style: TextStyle(
                           color: Colors.grey[600],
                           fontSize: 12.0,
