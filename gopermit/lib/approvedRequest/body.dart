@@ -19,7 +19,7 @@ class appReq extends StatelessWidget {
         CustomScrollView(
           slivers: <Widget>[
             SliverAppBar(
-              title: Text(
+              title: const Text(
                 'Approved Request',
                 style: TextStyle(color: Colors.white, fontSize: 28),
               ),
@@ -99,7 +99,7 @@ class EventOnHoldCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'Abcd',
                     style: TextStyle(
                       color: Colors.black,

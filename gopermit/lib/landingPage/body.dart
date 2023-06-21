@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:gop2/newPermission/components/background.dart';
-// ignore: depend_on_referenced_packages
 import '/loginPage/login_page.dart';
 import "package:gop2/scheduledEvents/body.dart";
 import 'package:gop2/services/event_json.dart';
@@ -31,20 +29,20 @@ Future<List<Eventonperm>> getAllEvents() async {
 
     eventsSnapshot.docs.forEach((doc) {
       events.add(Eventonperm(
-        id: doc.id,
-        eventName: doc['eventName'],
-        organizingSociety: doc['organizingSociety'],
-        eventLocation: doc['eventLocation'],
-        scheduledDate: (doc['scheduledDate'] as Timestamp).toDate(),
-        // startTime: TimeOfDay.fromDateTime(doc['startTime'].toDate()),
-        // endTime: TimeOfDay.fromDateTime(doc['endTime'].toDate()),
-        eventDescription: doc['eventDescription'],
-        posterImageUrl: doc['posterImageUrl'],
-        pointOfContact: doc['pointOfContact'],
-        pointOfContactPhone: doc['pointOfContactPhone'],
-        comment: doc['comment'],
-        isApproved: doc['isApproved'],
-      ));
+          id: doc.id,
+          eventName: doc['eventName'],
+          organizingSociety: doc['organizingSociety'],
+          eventLocation: doc['eventLocation'],
+          //scheduledDate: doc['scheduledDate'].toDate(),
+          // startTime: TimeOfDay.fromDateTime(doc['startTime'].toDate()),
+          // endTime: TimeOfDay.fromDateTime(doc['endTime'].toDate()),
+          eventDescription: doc['eventDescription'],
+          posterImageUrl: doc['posterImageUrl'],
+          pointOfContact: doc['pointOfContact'],
+          pointOfContactPhone: doc['pointOfContactPhone'],
+          comment: doc['comment'],
+          isApproved: doc['isApproved'],
+          uid: doc['uid']));
     });
 
     return events;
@@ -53,8 +51,6 @@ Future<List<Eventonperm>> getAllEvents() async {
     return [];
   }
 }
-
-//make another class unapproved
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
@@ -138,20 +134,20 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             /*
-              TextField(
-                decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.search, color: Colors.grey),
-                  hintText: 'Enter department or society',
-                  hintStyle: const TextStyle(color: Colors.grey),
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide.none,
-                  ),
+            TextField(
+              decoration: InputDecoration(
+                prefixIcon: const Icon(Icons.search, color: Colors.grey),
+                hintText: 'Enter department or society',
+                hintStyle: const TextStyle(color: Colors.grey),
+                filled: true,
+                fillColor: Colors.white,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  borderSide: BorderSide.none,
                 ),
               ),
-              */
+            ),
+            */
             const SizedBox(height: 16.0),
             const Text(
               'Scheduled Events',
@@ -243,7 +239,7 @@ class EventCard extends StatelessWidget {
                 children: [
                   Text(
                     event.eventName,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 16.0,
@@ -259,7 +255,7 @@ class EventCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 4.0),
                       Text(
-                        event.scheduledDate.toString(),
+                        'Event Date',
                         style: TextStyle(
                           color: Colors.grey[600],
                           fontSize: 12.0,
@@ -347,7 +343,7 @@ class EventOnHoldCard extends StatelessWidget {
                     children: [
                       Text(
                         event.eventName,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: 16.0,

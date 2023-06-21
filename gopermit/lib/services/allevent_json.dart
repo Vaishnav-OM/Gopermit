@@ -12,7 +12,8 @@ class Event {
   String pointOfContact;
   String pointOfContactPhone;
   String comment;
-  bool isApproved;
+  int isApproved;
+  String uid;
 
   Event({
     required this.id,
@@ -27,5 +28,6 @@ class Event {
     required this.pointOfContactPhone,
     required this.comment,
     required this.isApproved,
+    required this.uid,
   });
 }

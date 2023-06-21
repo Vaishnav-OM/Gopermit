@@ -36,12 +36,14 @@ class LoginPage extends StatelessWidget {
             ),
           );
         } else {
+          //User? user = FirebaseAuth.instance.currentUser;
+          //String? uid = user?.uid;
           // ignore: use_build_context_synchronously
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) =>
-                  const UserDashBoard(), // Replace with your user dashboard screen
+              builder: (context) => UserDashBoard(),
+              // Replace with your user dashboard screen
             ),
           );
         }
@@ -64,6 +66,7 @@ class LoginPage extends StatelessWidget {
         ),
       );
     }
+    //print(uid);
   }
 
   /*
