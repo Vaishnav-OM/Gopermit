@@ -20,6 +20,7 @@ Future<void> addEvent(Eventonperm event) async {
     'uid': event.uid
   });
   event.id = newEventDocRef.id;
+  print(event.posterImageUrl);
   // ignore: avoid_print
   print(event.id);
 }
