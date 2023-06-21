@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:gop2/newPermission/components/background.dart';
+import 'package:intl/intl.dart';
+// ignore: depend_on_referenced_packages
 import '/loginPage/login_page.dart';
 import "package:gop2/scheduledEvents/body.dart";
 import 'package:gop2/services/event_json.dart';
@@ -33,7 +36,7 @@ Future<List<Eventonperm>> getAllEvents() async {
           eventName: doc['eventName'],
           organizingSociety: doc['organizingSociety'],
           eventLocation: doc['eventLocation'],
-          //scheduledDate: doc['scheduledDate'].toDate(),
+          scheduledDate: doc['scheduledDate'].toDate(),
           // startTime: TimeOfDay.fromDateTime(doc['startTime'].toDate()),
           // endTime: TimeOfDay.fromDateTime(doc['endTime'].toDate()),
           eventDescription: doc['eventDescription'],
@@ -199,7 +202,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
 class EventCard extends StatelessWidget {
   final Eventonperm event;
-  const EventCard({super.key, required this.event});
+
+  EventCard({super.key, required this.event});
 
   @override
   Widget build(BuildContext context) {
@@ -225,7 +229,7 @@ class EventCard extends StatelessWidget {
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(10.0),
               ),
-              child: Image.asset(
+              child: Image.network(
                 'assets/images/eventcard.jpg',
                 height: 150.0,
                 width: double.infinity,
@@ -255,7 +259,7 @@ class EventCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 4.0),
                       Text(
-                        'Event Date',
+                        'hello',
                         style: TextStyle(
                           color: Colors.grey[600],
                           fontSize: 12.0,
