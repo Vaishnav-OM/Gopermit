@@ -8,7 +8,7 @@ Future<void> addEvent(Eventonperm event) async {
     'eventName': event.eventName,
     'organizingSociety': event.organizingSociety,
     'eventLocation': event.eventLocation,
-    // 'scheduledDate': event.scheduledDate,
+    'scheduledDate': event.scheduledDate,
     // 'startTime': event.startTime,
     // 'endTime': event.endTime,
     'eventDescription': event.eventDescription,

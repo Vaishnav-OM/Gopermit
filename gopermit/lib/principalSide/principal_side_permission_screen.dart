@@ -145,7 +145,7 @@ class PrincipalSidePermissionScreen extends StatelessWidget {
         eventName: events['eventName'],
         organizingSociety: events['organizingSociety'],
         eventLocation: events['eventLocation'],
-        //scheduledDate: events['scheduledDate'].toDate(),
+        scheduledDate: events['scheduledDate'].toDate(),
         // startTime: TimeOfDay.fromDateTime(doc['startTime'].toDate()),
         // endTime: TimeOfDay.fromDateTime(doc['endTime'].toDate()),
         eventDescription: events['eventDescription'],
@@ -169,7 +169,7 @@ class PrincipalSidePermissionScreen extends StatelessWidget {
           pointOfContact: '',
           pointOfContactPhone: '',
           posterImageUrl: '',
-          // scheduledDate: DateTime.now(),
+          scheduledDate: DateTime.now(),
           uid: ""); // Return an empty event or handle the error case
     }
   }
