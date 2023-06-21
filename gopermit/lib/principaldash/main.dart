@@ -23,7 +23,7 @@ Future<List<Eventonperm>> getAllEvents() async {
         eventName: doc['eventName'],
         organizingSociety: doc['organizingSociety'],
         eventLocation: doc['eventLocation'],
-        // scheduledDate: doc['scheduledDate'].toDate(),
+        scheduledDate: doc['scheduledDate'].toDate(),
         // startTime: TimeOfDay.fromDateTime(doc['startTime'].toDate()),
         // endTime: TimeOfDay.fromDateTime(doc['endTime'].toDate()),
         eventDescription: doc['eventDescription'],
