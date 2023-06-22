@@ -209,6 +209,9 @@ class EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String day = event.scheduledDate!.day.toString();
+    String month = event.scheduledDate!.month.toString();
+    String year = event.scheduledDate!.year.toString();
     var st = event.startTime;
     var et = event.endTime;
     print(event.posterImageUrl);
@@ -241,7 +244,7 @@ class EventCard extends StatelessWidget {
                 event.posterImageUrl,
                 height: 150.0,
                 width: double.infinity,
-                fit: BoxFit.contain,
+                fit: BoxFit.fill,
               ),
             ),
             Padding(
@@ -258,34 +261,42 @@ class EventCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 4.0),
-                  Row(
+                  Column(
                     children: [
-                      Icon(
-                        Icons.calendar_today,
-                        size: 14.0,
-                        color: Colors.grey[600],
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.calendar_today,
+                            size: 16.0,
+                            color: Colors.grey[600],
+                          ),
+                          const SizedBox(width: 4.0),
+                          Text(
+                            '$day' '/' '$month' '/' '$year',
+                            style: TextStyle(
+                              color: Colors.grey[600],
+                              fontSize: 16.0,
+                            ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(width: 4.0),
-                      Text(
-                        'hello',
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 12.0,
-                        ),
-                      ),
-                      const SizedBox(width: 8.0),
-                      Icon(
-                        Icons.access_time,
-                        size: 14.0,
-                        color: Colors.grey[600],
-                      ),
-                      const SizedBox(width: 4.0),
-                      Text(
-                        '$st' '-' '$et',
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 12.0,
-                        ),
+                      const SizedBox(height: 4.0),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.access_time,
+                            size: 14.0,
+                            color: Colors.grey[600],
+                          ),
+                          const SizedBox(width: 4.0),
+                          Text(
+                            '$st' '-' '$et',
+                            style: TextStyle(
+                              color: Colors.grey[600],
+                              fontSize: 13.0,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -302,7 +313,7 @@ class EventCard extends StatelessWidget {
                         event.eventLocation,
                         style: TextStyle(
                           color: Colors.grey[600],
-                          fontSize: 11.0,
+                          fontSize: 16.0,
                         ),
                       ),
                     ],
@@ -323,117 +334,116 @@ class EventOnHoldCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String day = event.scheduledDate!.day.toString();
+    String month = event.scheduledDate!.month.toString();
+    String year = event.scheduledDate!.year.toString();
+    var st = event.startTime;
+    var et = event.endTime;
     return GestureDetector(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => scheduledDetails(
-                      eventId: event.id,
-                      isApproved: event.isApproved,
-                    )),
-          );
-        },
-        child: Container(
-          width: double.infinity,
-          margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                height: 90.0,
-                width: double.minPositive,
-                color: Colors.grey[300],
-                margin: const EdgeInsets.all(8.0),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        event.eventName,
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16.0,
-                        ),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => scheduledDetails(
+                    eventId: event.id,
+                    isApproved: event.isApproved,
+                  )),
+        );
+      },
+      child: Container(
+        width: double.infinity,
+        margin: const EdgeInsets.symmetric(horizontal: 1.0, vertical: 8.0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      event.eventName,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16.0,
                       ),
-                      const SizedBox(height: 4.0),
-                      Text(
-                        event.organizingSociety,
-                        style: TextStyle(
+                    ),
+                    const SizedBox(height: 6.0),
+                    Text(
+                      event.organizingSociety,
+                      style: TextStyle(
+                        color: Colors.grey[600],
+                        fontSize: 12.0,
+                      ),
+                    ),
+                    const SizedBox(height: 6.0),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.calendar_today,
+                          size: 14.0,
                           color: Colors.grey[600],
-                          fontSize: 12.0,
                         ),
-                      ),
-                      const SizedBox(height: 4.0),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.calendar_today,
-                            size: 14.0,
+                        const SizedBox(width: 4.0),
+                        Text(
+                          '$day' '/' '$month' '/' '$year',
+                          style: TextStyle(
                             color: Colors.grey[600],
+                            fontSize: 12.0,
                           ),
-                          const SizedBox(width: 4.0),
-                          Text(
-                            'Event Date',
-                            style: TextStyle(
-                              color: Colors.grey[600],
-                              fontSize: 12.0,
-                            ),
-                          ),
-                          const SizedBox(width: 8.0),
-                          Icon(
-                            Icons.access_time,
-                            size: 14.0,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8.0),
+                    Row(
+                      children: [
+                        // const SizedBox(width: 20.0),
+                        Icon(
+                          Icons.access_time,
+                          size: 14.0,
+                          color: Colors.grey[600],
+                        ),
+                        const SizedBox(width: 4.0),
+                        Text(
+                          '$st' '-' '$et',
+                          style: TextStyle(
                             color: Colors.grey[600],
+                            fontSize: 12.0,
                           ),
-                          const SizedBox(width: 4.0),
-                          Text(
-                            'Event Time',
-                            style: TextStyle(
-                              color: Colors.grey[600],
-                              fontSize: 12.0,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 4.0),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.location_on,
-                            size: 14.0,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8.0),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.location_on,
+                          size: 14.0,
+                          color: Colors.grey[600],
+                        ),
+                        const SizedBox(width: 4.0),
+                        Text(
+                          event.eventLocation,
+                          style: TextStyle(
                             color: Colors.grey[600],
+                            fontSize: 12.0,
                           ),
-                          const SizedBox(width: 4.0),
-                          Text(
-                            'Event Location',
-                            style: TextStyle(
-                              color: Colors.grey[600],
-                              fontSize: 12.0,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-              Container(
-                height: 40.0,
-                width: 40.0,
-                color: Colors.grey[300],
-                margin: const EdgeInsets.all(8.0),
-              ),
-            ],
-          ),
-        ));
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

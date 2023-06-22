@@ -100,6 +100,11 @@ class EventOnHoldCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String day = event.scheduledDate!.day.toString();
+    String month = event.scheduledDate!.month.toString();
+    String year = event.scheduledDate!.year.toString();
+    var st = event.startTime;
+    var et = event.endTime;
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -126,7 +131,7 @@ class EventOnHoldCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 4.0),
                   Text(
-                    'Abcd',
+                    event.eventDescription,
                     style: TextStyle(
                       color: Colors.grey[600],
                       fontSize: 12.0,
@@ -142,7 +147,7 @@ class EventOnHoldCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 4.0),
                       Text(
-                        'Event Date',
+                        '$day' '/' '$month' '/' '$year',
                         style: TextStyle(
                           color: Colors.grey[600],
                           fontSize: 12.0,
@@ -156,7 +161,7 @@ class EventOnHoldCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 4.0),
                       Text(
-                        'Event Time',
+                        '$st' '-' '$et',
                         style: TextStyle(
                           color: Colors.grey[600],
                           fontSize: 12.0,
@@ -174,7 +179,7 @@ class EventOnHoldCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 4.0),
                       Text(
-                        'Event Location',
+                        event.eventLocation,
                         style: TextStyle(
                           color: Colors.grey[600],
                           fontSize: 12.0,
@@ -250,8 +255,10 @@ _gpt(Eventonperm event) async {
 
 Future<List<Eventonperm>> getAllEvents() async {
   try {
-    QuerySnapshot eventsSnapshot =
-        await FirebaseFirestore.instance.collection('events').get();
+    QuerySnapshot eventsSnapshot = await FirebaseFirestore.instance
+        .collection('events')
+        .where('isApproved', isEqualTo: 1)
+        .get();
     List<Eventonperm> events = [];
     List<Eventonperm> unapprovedEvents = [];
 

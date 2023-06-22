@@ -462,12 +462,7 @@ Widget _buildMetricBlock3({
   required BuildContext context,
 }) {
   return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => appHold()),
-        );
-      },
+      onTap: () {},
       child: Container(
         padding: EdgeInsets.all(10),
         width: 167.0,
