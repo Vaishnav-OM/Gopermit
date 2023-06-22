@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-Future<void> updateEventApprovalStatus(String eventId, bool isApproved) async {
+Future<void> updateEventApprovalStatus(String eventId, int isApproved) async {
   try {
     CollectionReference eventsCollection =
         FirebaseFirestore.instance.collection('events');

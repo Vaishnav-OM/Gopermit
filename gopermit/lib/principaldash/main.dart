@@ -47,6 +47,30 @@ Future<int> getTotalRequests() async {
   return snapshot.size;
 }
 
+Future<int> getApprovedRequests(uid) async {
+  final snapshot = await FirebaseFirestore.instance
+      .collection('events')
+      .where('isApproved', isEqualTo: 1)
+      .get();
+  return snapshot.size;
+}
+
+Future<int> getRejectedRequests(uid) async {
+  final snapshot = await FirebaseFirestore.instance
+      .collection('events')
+      .where('isApproved', isEqualTo: -1)
+      .get();
+  return snapshot.size;
+}
+
+Future<int> getHoldRequests(uid) async {
+  final snapshot = await FirebaseFirestore.instance
+      .collection('events')
+      .where('isApproved', isEqualTo: 0)
+      .get();
+  return snapshot.size;
+}
+
 // ignore: camel_case_types
 class princDashBoard extends StatefulWidget {
   const princDashBoard({super.key});
@@ -138,7 +162,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     final totalRequests = snapshot.data;
+                    final approvedRequests =
+                        events.where((event) => event.isApproved == 1).toList();
 
+                    final rejectedRequests = events
+                        .where((event) => event.isApproved == -1)
+                        .toList();
+                    final holdRequests =
+                        events.where((event) => event.isApproved == 0).toList();
                     return Column(
                       children: [
                         Container(
@@ -161,7 +192,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   ),
                                   _buildMetricBlock1(
                                     title: 'Requests Approved',
-                                    value: '6',
+                                    value: approvedRequests.length.toString(),
                                   ),
                                   const SizedBox(
                                     height: 8.0,
@@ -175,7 +206,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 children: [
                                   _buildMetricBlock2(
                                     title: 'Requests Rejected',
-                                    value: '2',
+                                    value: rejectedRequests.length.toString(),
                                   ),
                                   const SizedBox(
                                     height: 8.0,
@@ -183,7 +214,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   ),
                                   _buildMetricBlock3(
                                     title: 'Requests on Hold',
-                                    value: '2',
+                                    value: holdRequests.length.toString(),
                                   ),
                                   const SizedBox(
                                     height: 8.0,

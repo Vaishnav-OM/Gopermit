@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 //import '../newPermission/components/body.dart';
+import '../services/commentsonrej.dart';
+import '../services/updateevent.dart';
 import '/newPermission/components/background.dart';
 import '../services/event_json.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -17,6 +19,7 @@ class PrincipalSidePermissionScreen extends StatelessWidget {
   PrincipalSidePermissionScreen(
       {super.key, required this.isApproved, required this.eventId});
   final commentsController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Eventonperm>(
@@ -75,20 +78,20 @@ class PrincipalSidePermissionScreen extends StatelessWidget {
                                       details: event.eventLocation),
 
                                   ///implement following using DateTime
-                                  const TitleWithDetailWidget(
+                                  TitleWithDetailWidget(
                                       title: 'Date',
-                                      details: "18th September 2023"),
-                                  const Row(
+                                      details: event.scheduledDate.toString()),
+                                  Row(
                                     children: [
                                       TitleWithDetailWidget(
                                           title: 'Starting Time',
-                                          details: "4:00 PM"),
+                                          details: event.startTime),
                                       SizedBox(
                                         width: 15,
                                       ),
                                       TitleWithDetailWidget(
                                           title: 'Ending Time',
-                                          details: "6:00 PM"),
+                                          details: event.endTime),
                                     ],
                                   ),
                                   TitleWithDetailWidget(
@@ -106,11 +109,18 @@ class PrincipalSidePermissionScreen extends StatelessWidget {
                                     children: [
                                       DecisionButtonWidget(
                                         buttonText: 'APPROVE',
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          updateEventApprovalStatus(eventId, 1);
+                                        },
                                       ),
                                       DecisionButtonWidget(
                                         buttonText: 'REJECT',
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          updateEventApprovalStatus(
+                                              eventId, -1);
+                                          addCommentToEvent(
+                                              eventId, commentsController.text);
+                                        },
                                       ),
                                     ],
                                   )
@@ -145,7 +155,7 @@ class PrincipalSidePermissionScreen extends StatelessWidget {
         eventName: events['eventName'],
         organizingSociety: events['organizingSociety'],
         eventLocation: events['eventLocation'],
-        scheduledDate: events['scheduledDate'].toDate(),
+        scheduledDate: (events['scheduledDate'] as Timestamp).toDate(),
         startTime: events['startTime'],
         endTime: events['endTime'],
         eventDescription: events['eventDescription'],
@@ -183,6 +193,7 @@ class _CommentsSection extends StatelessWidget {
     required this.controller,
   });
   final TextEditingController controller;
+
   @override
   Widget build(BuildContext context) {
     return Column(

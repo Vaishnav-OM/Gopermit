@@ -211,6 +211,7 @@ class EventCard extends StatelessWidget {
   Widget build(BuildContext context) {
     var st = event.startTime;
     var et = event.endTime;
+    print(event.posterImageUrl);
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -236,11 +237,11 @@ class EventCard extends StatelessWidget {
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(10.0),
               ),
-              child: Image.asset(
-                'assets/images/eventcard.jpg',
+              child: Image.network(
+                event.posterImageUrl,
                 height: 150.0,
                 width: double.infinity,
-                fit: BoxFit.cover,
+                fit: BoxFit.contain,
               ),
             ),
             Padding(
