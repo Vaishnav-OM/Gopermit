@@ -45,7 +45,7 @@ class _BodyState extends State<Body> {
       DateTime? scheduledDate,
       String selectedstartTime,
       String selectedendTime,
-      // String imageUrl,
+      String imageUrl,
       String uid) async {
     String eventName = eventNameController.text;
     String organizingSociety = organizingSocietyController.text;
@@ -58,8 +58,8 @@ class _BodyState extends State<Body> {
     String startTime = selectedstartTime;
     String endTime = selectedendTime;
     String uid = FirebaseAuth.instance.currentUser!.uid;
-    // _imageUrl = (await uploadImageToFirebaseStorage(_imageFile.path))!;
-
+    _imageUrl = (await uploadImageToFirebaseStorage(_imageFile.path))!;
+    print(_imageUrl);
 //DateTime scheduledDate =
 // startTime: startTime,
 //         endTime: endTime,
@@ -73,7 +73,7 @@ class _BodyState extends State<Body> {
         startTime: startTime,
         endTime: endTime,
         eventDescription: eventDescription,
-        posterImageUrl: '',
+        posterImageUrl: _imageUrl,
         pointOfContact: pointOfContact,
         pointOfContactPhone: pointOfContactPhone,
         uid: uid));
@@ -141,17 +141,17 @@ class _BodyState extends State<Body> {
   }
 
 //image picker
-  // late File _imageFile;
-  // late String _imageUrl;
-  // Future<void> _pickImageFromGallery() async {
-  //   final pickedImage =
-  //       await ImagePicker().pickImage(source: ImageSource.gallery);
-  //   if (pickedImage != null) {
-  //     setState(() {
-  //       _imageFile = File(pickedImage.path);
-  //     });
-  //   }
-  // }
+  late File _imageFile;
+  late String _imageUrl;
+  Future<void> _pickImageFromGallery() async {
+    final pickedImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      setState(() {
+        _imageFile = File(pickedImage.path);
+      });
+    }
+  }
 
   Future<String?> uploadImageToFirebaseStorage(String imagePath) async {
     try {
@@ -296,7 +296,7 @@ class _BodyState extends State<Body> {
                           const TitleWithDetailWidget(title: "Event Poster"),
                           ElevatedButton(
                             onPressed: () async {
-                              // _pickImageFromGallery();
+                              _pickImageFromGallery();
                             },
                             child: const Text('Upload Image'),
                           ),
@@ -314,19 +314,18 @@ class _BodyState extends State<Body> {
                                       Color.fromARGB(255, 209, 209, 209)),
                               onPressed: () {
                                 addEventFromFields(
-                                  eventNameController,
-                                  organizingSocietyController,
-                                  eventLocationController,
-                                  eventDescriptionController,
-                                  posterImageUrlController,
-                                  pointOfContactController,
-                                  pointOfContactPhoneController,
-                                  selectedDate,
-                                  selectedendTime,
-                                  selectedstartTime,
-                                  uid,
-                                  // imageUrl
-                                );
+                                    eventNameController,
+                                    organizingSocietyController,
+                                    eventLocationController,
+                                    eventDescriptionController,
+                                    posterImageUrlController,
+                                    pointOfContactController,
+                                    pointOfContactPhoneController,
+                                    selectedDate,
+                                    selectedendTime,
+                                    selectedstartTime,
+                                    uid,
+                                    imageUrl);
                               },
                               child: Text(
                                 "Submit",
