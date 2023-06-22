@@ -10,8 +10,9 @@ import '../services/event_json.dart';
 class scheduledDetails extends StatelessWidget {
   final String eventId;
 
-  scheduledDetails({required this.eventId});
-  final commentsController = TextEditingController();
+  var isApproved;
+
+  scheduledDetails({required this.eventId, required this.isApproved});
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Eventonperm>(

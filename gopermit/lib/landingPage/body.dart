@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gop2/newPermission/components/background.dart';
@@ -214,7 +216,10 @@ class EventCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => scheduledDetails(eventId: event.id)),
+              builder: (context) => scheduledDetails(
+                    eventId: event.id,
+                    isApproved: event.isApproved,
+                  )),
         );
       },
       child: Container(
@@ -322,7 +327,10 @@ class EventOnHoldCard extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => scheduledDetails(eventId: event.id)),
+                builder: (context) => scheduledDetails(
+                      eventId: event.id,
+                      isApproved: event.isApproved,
+                    )),
           );
         },
         child: Container(
