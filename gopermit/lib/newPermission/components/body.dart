@@ -13,6 +13,7 @@ import 'background.dart';
 import 'package:intl/intl.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:image_picker/image_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Body extends StatefulWidget {
   const Body({super.key});
@@ -34,18 +35,18 @@ const kwidth = SizedBox(
 
 class _BodyState extends State<Body> {
   Future<void> addEventFromFields(
-    TextEditingController eventNameController,
-    TextEditingController organizingSocietyController,
-    TextEditingController eventLocationController,
-    TextEditingController eventDescriptionController,
-    TextEditingController posterImageUrlController,
-    TextEditingController pointOfContactController,
-    TextEditingController pointOfContactPhoneController,
-    DateTime? scheduledDate,
-    String selectedstartTime,
-    String selectedendTime,
-    // String imageUrl,
-  ) async {
+      TextEditingController eventNameController,
+      TextEditingController organizingSocietyController,
+      TextEditingController eventLocationController,
+      TextEditingController eventDescriptionController,
+      TextEditingController posterImageUrlController,
+      TextEditingController pointOfContactController,
+      TextEditingController pointOfContactPhoneController,
+      DateTime? scheduledDate,
+      String selectedstartTime,
+      String selectedendTime,
+      // String imageUrl,
+      String uid) async {
     String eventName = eventNameController.text;
     String organizingSociety = organizingSocietyController.text;
     String eventLocation = eventLocationController.text;
@@ -56,6 +57,7 @@ class _BodyState extends State<Body> {
     DateTime scheduledEventDate = scheduledDate!.toLocal();
     String startTime = selectedstartTime;
     String endTime = selectedendTime;
+    String uid = FirebaseAuth.instance.currentUser!.uid;
     // _imageUrl = (await uploadImageToFirebaseStorage(_imageFile.path))!;
 
 //DateTime scheduledDate =
@@ -74,7 +76,7 @@ class _BodyState extends State<Body> {
         posterImageUrl: '',
         pointOfContact: pointOfContact,
         pointOfContactPhone: pointOfContactPhone,
-        uid: ''));
+        uid: uid));
 
 // Call the addEvent function to add the event to Firestore
   }
@@ -162,6 +164,7 @@ class _BodyState extends State<Body> {
           await uploadTask.whenComplete(() => null);
 
       final imageUrl = await storageSnapshot.ref.getDownloadURL();
+
       return imageUrl.toString();
     } catch (e) {
       print('Error uploading image: $e');
@@ -172,6 +175,7 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     String imageUrl = '';
+    String uid = FirebaseAuth.instance.currentUser!.uid;
     SizeConfig().init(context);
     // Size size = MediaQuery.of(context).size;
     return Stack(
@@ -320,6 +324,7 @@ class _BodyState extends State<Body> {
                                   selectedDate,
                                   selectedendTime,
                                   selectedstartTime,
+                                  uid,
                                   // imageUrl
                                 );
                               },

@@ -14,7 +14,7 @@ class Eventonperm {
   String pointOfContactPhone;
   String comment;
   int isApproved;
-  String uid;
+  String? uid;
 
   Eventonperm({
     this.id = '',
