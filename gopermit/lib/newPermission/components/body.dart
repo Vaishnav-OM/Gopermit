@@ -1,15 +1,16 @@
 import 'dart:io';
+import 'dart:math';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:gop2/scheduledEvents/body.dart';
 import '../../services/event_json.dart';
 import '/services/addevent.dart';
-//import 'package:gopermit/services/allevent_json.dart';
-//import 'package:gopermit/services/event_json.dart';
+
 import '/size_config.dart';
 import 'background.dart';
-// import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+
 import 'package:intl/intl.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:image_picker/image_picker.dart';
@@ -34,6 +35,50 @@ const kwidth = SizedBox(
 // DateTime? selectedDate = DateTime.now();
 
 class _BodyState extends State<Body> {
+  List<Eventonperm> events = [];
+  @override
+  void initState() {
+    super.initState();
+    fetchEvents();
+  }
+
+  Future<void> fetchEvents() async {
+    List<Eventonperm> fetchedEvents = await getAllEvents();
+    setState(() {
+      events = fetchedEvents;
+    });
+  }
+
+  Future<List<Eventonperm>> getAllEvents() async {
+    try {
+      QuerySnapshot eventsSnapshot =
+          await FirebaseFirestore.instance.collection('events').get();
+      List<Eventonperm> events = [];
+
+      eventsSnapshot.docs.forEach((doc) {
+        events.add(Eventonperm(
+            id: doc.id,
+            eventName: doc['eventName'],
+            organizingSociety: doc['organizingSociety'],
+            eventLocation: doc['eventLocation'],
+            scheduledDate: doc['scheduledDate'].toDate(),
+            startTime: doc['startTime'],
+            endTime: doc['endTime'],
+            eventDescription: doc['eventDescription'],
+            posterImageUrl: doc['posterImageUrl'],
+            pointOfContact: doc['pointOfContact'],
+            pointOfContactPhone: doc['pointOfContactPhone'],
+            comment: doc['comment'],
+            isApproved: doc['isApproved'],
+            uid: doc['uid']));
+      });
+      return events;
+    } catch (e) {
+      print(e);
+      return [];
+    }
+  }
+
   Future<void> addEventFromFields(
       TextEditingController eventNameController,
       TextEditingController organizingSocietyController,
@@ -77,8 +122,6 @@ class _BodyState extends State<Body> {
         pointOfContact: pointOfContact,
         pointOfContactPhone: pointOfContactPhone,
         uid: uid));
-
-// Call the addEvent function to add the event to Firestore
   }
 
   final TextEditingController eventNameController = TextEditingController();
@@ -282,10 +325,6 @@ class _BodyState extends State<Body> {
                                             BorderRadius.circular(10.0),
                                       ),
                                       filled: true,
-                                      // hintStyle: TextStyle(
-                                      //   color: Colors.grey[800],
-                                      // ),
-                                      // hintText: "ENter ",
                                       fillColor: Colors.white70),
                                 ),
                               ),
@@ -312,20 +351,52 @@ class _BodyState extends State<Body> {
                                   fixedSize: const Size(120, 50),
                                   backgroundColor:
                                       Color.fromARGB(255, 209, 209, 209)),
-                              onPressed: () {
-                                addEventFromFields(
-                                    eventNameController,
-                                    organizingSocietyController,
-                                    eventLocationController,
-                                    eventDescriptionController,
-                                    posterImageUrlController,
-                                    pointOfContactController,
-                                    pointOfContactPhoneController,
-                                    selectedDate,
-                                    selectedendTime,
-                                    selectedstartTime,
-                                    uid,
-                                    imageUrl);
+                              onPressed: () async {
+                                await fetchEvents();
+                                int flag = 1;
+                                print(events);
+                                for (Eventonperm event in events) {
+                                  print("checking event");
+                                  if (event.scheduledDate == selectedDate) {
+                                    flag = 0;
+                                    print("setting false!");
+                                    break;
+                                  }
+                                }
+                                if (flag == 1) {
+                                  addEventFromFields(
+                                      eventNameController,
+                                      organizingSocietyController,
+                                      eventLocationController,
+                                      eventDescriptionController,
+                                      posterImageUrlController,
+                                      pointOfContactController,
+                                      pointOfContactPhoneController,
+                                      selectedDate,
+                                      selectedendTime,
+                                      selectedstartTime,
+                                      uid,
+                                      imageUrl);
+                                } else {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: Text('Conflict Detected'),
+                                        content: Text(
+                                            'There is a conflict with the selected date/time.'),
+                                        actions: <Widget>[
+                                          ElevatedButton(
+                                            child: Text('OK'),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                }
                               },
                               child: Text(
                                 "Submit",
