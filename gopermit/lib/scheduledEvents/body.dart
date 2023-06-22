@@ -21,7 +21,7 @@ class scheduledDetails extends StatelessWidget {
         if (snapshot.hasData) {
           Eventonperm event = snapshot.data!;
           return Scaffold(
-              backgroundColor: Colors.black,
+              backgroundColor: Colors.grey[700],
               body: Center(
                   child: Container(
                 // decoration: BoxDecoration(
@@ -78,22 +78,23 @@ class scheduledDetails extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  // Image.asset(
-                                  //   'assets/images/eventdet.jpg',
-                                  // ),
-                                  const SizedBox(
-                                    height: 10.0,
+                                  Image.network(
+                                    event.posterImageUrl,
+                                    height: 300,
+                                    width: double.infinity,
                                   ),
-
+                                  const SizedBox(
+                                    height: 80.0,
+                                  ),
                                   Row(
                                     children: [
-                                      Text('Date',
+                                      Text('Date:',
                                           style: TextStyle(
                                               // fontFamily: 'Poppins-Medium',
                                               color: Colors.grey[900],
                                               // letterSpacing: 2.0,
                                               fontWeight: FontWeight.bold)),
-                                      SizedBox(width: 50),
+                                      SizedBox(width: 53),
                                       Text('18th September 2022',
                                           style: TextStyle(
                                             // fontFamily: 'Poppins-Medium',
@@ -107,13 +108,13 @@ class scheduledDetails extends StatelessWidget {
                                   ),
                                   Row(
                                     children: [
-                                      Text('Time',
+                                      Text('Time:',
                                           style: TextStyle(
                                               // fontFamily: 'Poppins-Medium',
                                               color: Colors.grey[900],
                                               // letterSpacing: 2.0,
                                               fontWeight: FontWeight.bold)),
-                                      SizedBox(width: 112),
+                                      SizedBox(width: 53),
                                       Text('12 - 2 PM',
                                           style: TextStyle(
                                             // fontFamily: 'Poppins-Medium',
@@ -127,13 +128,13 @@ class scheduledDetails extends StatelessWidget {
                                   ),
                                   Row(
                                     children: [
-                                      Text('Location',
+                                      Text('Location:',
                                           style: TextStyle(
                                               // fontFamily: 'Poppins-Medium',
                                               color: Colors.grey[900],
                                               // letterSpacing: 2.0,
                                               fontWeight: FontWeight.bold)),
-                                      SizedBox(width: 80),
+                                      SizedBox(width: 30),
                                       Text(event.eventLocation,
                                           style: TextStyle(
                                             // fontFamily: 'Poppins-Medium',
